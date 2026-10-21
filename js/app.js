@@ -152,7 +152,7 @@
     info.appendChild(mine);
 
     var actions = el("div", "actions");
-    var wa = el("a", "btn btn--brass", "Richiedi su WhatsApp");
+    var wa = el("a", "btn btn--solid", "Richiedi su WhatsApp");
     wa.target = "_blank"; wa.rel = "noopener"; wa.setAttribute("data-wa", p.id);
     actions.appendChild(wa);
     info.appendChild(actions);
@@ -165,7 +165,7 @@
   var catalogo = document.getElementById("catalogo");
   PRODUCTS.forEach(function (p, i) { catalogo.appendChild(buildItem(p, i)); });
 
-  document.title = SITE.brand + " – Bracciali incisi in acciaio";
+  document.title = SITE.brand + " – Oggetti unici, creati per te";
   render();
   // il laser incide il testo una volta all'apertura
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); burn(); }); else burn();

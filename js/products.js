@@ -1,7 +1,7 @@
 /* Catalogo: unica fonte dei prodotti. Per aggiungerne uno basta una nuova voce.
    Foto, descrizioni e prezzi sono di esempio (demo): da sostituire con quelli reali. */
 window.SITE = {
-  brand: "Menny's Bracelets",
+  brand: "Fatto per Te Lab",
   whatsapp: "390000000000", // numero segnaposto
   email: "ciao@example.com", // email segnaposto
 };

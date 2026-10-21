@@ -28,7 +28,7 @@ Orders are handled by contact (WhatsApp/email) in this demo; no cart, checkout o
 
 ## Capabilities and Constraints
 
-- Brand name is provisional: "Menny's Bracelets" (user: "braccialetti di menny", in English). Must be trivial to rename.
+- Brand name: "Fatto per Te Lab" (tagline "Oggetti unici, creati per te"). Lives in SITE.brand (js/products.js) and index.html.
 - Site copy in Italian. Prices in EUR.
 - 6 products only; catalogue data kept in one JS/JSON structure so it can grow.
 - Product photos and some descriptive facts were taken as reference from almendra.store at the user's request. They are placeholders for the demo; the friend's own photos and wording must replace them before any real launch.
@@ -36,7 +36,7 @@ Orders are handled by contact (WhatsApp/email) in this demo; no cart, checkout o
 
 ## Brand Commitments
 
-Provisional name only. No logo yet.
+Logo supplied by the user (gift tag with heart). Palette from it: navy #212B47, cream #F2EEE6, coral #E2552D (#FF7B5C on navy). Type: Fraunces, Space Grotesk, Space Mono.
 
 ## Evidence on Hand
 

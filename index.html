@@ -3,40 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Menny's Bracelets – Bracciali incisi in acciaio</title>
+  <title>Fatto per Te Lab – Oggetti unici, creati per te</title>
   <meta name="description" content="Bracciali in acciaio con incisione personalizzata: un nome, una data, un luogo, una frase. Prova la tua incisione e scegli il modello.">
-  <meta name="theme-color" content="#101c19">
+  <meta name="theme-color" content="#212B47">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/Antonio-700.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip" href="#collezione">Vai alla collezione</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="mark" viewBox="0 0 100 116">
+      <g fill="none" stroke="currentColor" stroke-linecap="round">
+        <circle cx="50" cy="12" r="8.500" stroke-width="5"/>
+        <rect x="6" y="24" width="88" height="86" rx="26" stroke-width="6.500"/>
+        <circle cx="50" cy="45" r="5.500" stroke-width="4.500"/>
+      </g>
+      <path style="fill:var(--heart,#e2552d)" d="M50 98C31 85 25 74 29 66c4-8 16-8 21 2 5-10 17-10 21-2 4 8-2 19-21 32z"/>
+    </symbol>
+  </svg>
+
+  <a class="skip" href="#collezione">Vai ai bracciali</a>
 
   <header class="top">
-    <a class="brand" href="#top" aria-label="Menny's Bracelets, inizio pagina">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M8 16h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-      <span>Menny's<br class="brand-br"> Bracelets</span>
+    <a class="brand" href="#top" aria-label="Fatto per Te Lab, inizio pagina">
+      <svg class="brand-mark" aria-hidden="true"><use href="#mark"/></svg>
+      <span class="brand-name">Fatto per Te<span class="brand-lab">Lab</span></span>
     </a>
     <nav class="nav" aria-label="Principale">
-      <a href="#collezione">Collezione</a>
-      <a href="#come-funziona">Come funziona</a>
+      <a class="nav-opt" href="#collezione">Bracciali</a>
+      <a class="nav-opt" href="#come-funziona">Come funziona</a>
       <a href="#contatti" class="nav-cta">Scrivici</a>
     </nav>
   </header>
 
   <main id="top">
     <section class="bench" aria-labelledby="h1">
-      <h1 id="h1">Il tuo messaggio,<br><em>inciso nell'acciaio.</em></h1>
-      <p class="lede">Scrivi un nome, una data, un luogo. Guarda come resta sul bracciale, poi scegli il modello.</p>
+      <h1 id="h1">Oggetti unici, creati per te.</h1>
+      <p class="lede">Scrivi un nome, una data o una frase. La vedi incisa sulla targhetta prima di scegliere il tuo bracciale.</p>
 
       <div class="plate-wrap">
         <div class="plate" id="plate" role="img" aria-label="Anteprima dell'incisione">
-          <span class="plate-screw plate-screw--l" aria-hidden="true"></span>
-          <span class="plate-screw plate-screw--r" aria-hidden="true"></span>
-          <div class="plate-face">
-            <span class="engraving" id="engraving" data-style="corsivo"></span>
-            <span class="laser" id="laser" aria-hidden="true"></span>
+          <span class="plate-ring" aria-hidden="true"></span>
+          <div class="plate-body">
+            <span class="plate-hole" aria-hidden="true"></span>
+            <svg class="plate-heart" aria-hidden="true" viewBox="0 0 100 100"><path d="M50 92C26 76 18 62 23 51c5-10 21-10 27 3 6-13 22-13 27-3 5 11-3 25-27 41z"/></svg>
+            <div class="plate-face">
+              <span class="engraving" id="engraving" data-style="corsivo"></span>
+              <span class="laser" id="laser" aria-hidden="true"></span>
+            </div>
           </div>
         </div>
         <p class="plate-note">Anteprima indicativa: l'incisione vera segue le proporzioni del modello scelto.</p>
@@ -63,24 +78,26 @@
         </div>
       </form>
 
-      <a class="btn btn--brass" href="#collezione">Scegli il modello <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M4 11l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn--solid" href="#collezione">Scegli il bracciale <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M4 11l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </section>
 
     <section class="collection" id="collezione" aria-labelledby="h-coll">
       <header class="sec-head">
-        <h2 id="h-coll">Sei modelli, tutti da incidere</h2>
-        <p>Acciaio inossidabile, incisione laser. Ogni scheda ti dice com'è fatto e cosa puoi scriverci.</p>
+        <h2 id="h-coll">I bracciali, tutti da incidere</h2>
+        <p>Sei modelli in acciaio inossidabile con incisione laser. Ogni scheda ti dice com'è fatto e cosa puoi scriverci.</p>
       </header>
       <div id="catalogo" class="catalogo"></div>
     </section>
 
     <section class="steps" id="come-funziona" aria-labelledby="h-steps">
-      <h2 id="h-steps">Come funziona</h2>
-      <ol>
-        <li><strong>Scegli il bracciale.</strong> <span>Catena, rigido, pietre, cinturino o set di coppia.</span></li>
-        <li><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve. Anche un messaggio segreto all'interno, dove previsto.</span></li>
-        <li><strong>Ci scrivi su WhatsApp.</strong> <span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></li>
-      </ol>
+      <div class="steps-in">
+        <h2 id="h-steps">Come funziona</h2>
+        <ol>
+          <li><strong>Scegli il bracciale.</strong> <span>Catena, rigido, pietre, cinturino o set di coppia.</span></li>
+          <li><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve. Anche un messaggio segreto all'interno, dove previsto.</span></li>
+          <li><strong>Ci scrivi su WhatsApp.</strong> <span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></li>
+        </ol>
+      </div>
     </section>
 
     <section class="material" aria-labelledby="h-mat">
@@ -91,18 +108,24 @@
     </section>
 
     <section class="contact" id="contatti" aria-labelledby="h-cont">
-      <h2 id="h-cont">Parliamone</h2>
-      <p>Hai già in mente cosa incidere? Scrivici e ti rispondiamo con tutti i dettagli.</p>
-      <div class="contact-actions">
-        <a class="btn btn--brass" id="contact-wa" href="#" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
-        <a class="btn btn--line" id="contact-mail" href="#">Oppure via email</a>
+      <div class="contact-in">
+        <h2 id="h-cont">Parliamone</h2>
+        <p>Hai già in mente cosa incidere? Scrivici e ti rispondiamo con tutti i dettagli.</p>
+        <div class="contact-actions">
+          <a class="btn btn--coral" id="contact-wa" href="#" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
+          <a class="btn btn--line" id="contact-mail" href="#">Oppure via email</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="foot">
-    <span class="foot-brand">Menny's Bracelets</span>
-    <p>Sito dimostrativo: foto, testi e prezzi sono di esempio e verranno sostituiti con quelli reali.</p>
+    <div class="foot-brand">
+      <svg class="brand-mark" aria-hidden="true"><use href="#mark"/></svg>
+      <span class="brand-name">Fatto per Te<span class="brand-lab">Lab</span></span>
+    </div>
+    <p class="foot-tag">Oggetti unici, creati per te</p>
+    <p class="foot-demo">Sito dimostrativo: foto, testi e prezzi sono di esempio e verranno sostituiti con quelli reali.</p>
   </footer>
 
   <script src="js/products.js"></script>

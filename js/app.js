@@ -185,7 +185,7 @@
         if (p.double) inp.focus();
       });
       inp.addEventListener("input", function () { p.inner = inp.value; updateLinks(); });
-      info.appendChild(box);
+      info.insertBefore(box, dl);
     }
 
     var mine = el("p", "mine", "Con la tua incisione: <q></q> · <a href=\"#top\">cambia</a>");

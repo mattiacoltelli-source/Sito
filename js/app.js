@@ -13,14 +13,25 @@
   var BASE = { corsivo: 0.78, romano: 0.4, blocco: 0.52 }; // fattore sull'altezza della lastra
 
   /* ---------- Anteprima incisione ---------- */
+  // Una riga finche' resta leggibile; se non basta, la scritta va su due righe
+  var MIN_ONE = { corsivo: 30, romano: 17, blocco: 22 }; // misura minima (px) per tenere una riga sola
   function fit() {
     var avail = face.clientWidth - 8;
     var h = face.clientHeight;
     var size = Math.max(16, h * BASE[state.style]);
+    engraving.classList.remove("is-two");
     engraving.style.fontSize = size + "px";
-    var guard = 60;
-    while (engraving.scrollWidth > avail && size > 12 && guard--) {
+    var guard = 80;
+    while (engraving.scrollWidth > avail && size > MIN_ONE[state.style] && guard--) {
       size -= 2;
+      engraving.style.fontSize = size + "px";
+    }
+    if (engraving.scrollWidth <= avail) return;
+    engraving.classList.add("is-two"); // va a capo (anche dentro una parola lunga)
+    size = Math.min(size, Math.floor(h / 2.3));
+    engraving.style.fontSize = size + "px";
+    while ((engraving.scrollWidth > avail || engraving.scrollHeight > h) && size > 12 && guard--) {
+      size -= 1;
       engraving.style.fontSize = size + "px";
     }
   }
@@ -210,6 +221,16 @@
   var sheet = document.getElementById("sheet");
   var grid = document.getElementById("sheet-grid");
   var current = order[0];
+
+  var sentinel = document.createElement("div");
+  sentinel.setAttribute("aria-hidden", "true");
+  bar.parentNode.insertBefore(sentinel, bar);
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) {
+      var e = es[es.length - 1];
+      bar.classList.toggle("is-stuck", !e.isIntersecting && e.boundingClientRect.top < 0);
+    }, { threshold: 0 }).observe(sentinel);
+  }
 
   var chev = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var arrow = function (dir) { return '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="' + (dir < 0 ? "M12 4l-6 6 6 6" : "M8 4l6 6-6 6") + '" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'; };

@@ -92,6 +92,7 @@ p { margin: 0; }
 .engraving[data-style="corsivo"] { font-family: "Allura", cursive; }
 .engraving[data-style="romano"] { font-family: "Cinzel", serif; letter-spacing: .06em; }
 .engraving[data-style="blocco"] { font-family: "Antonio", sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+.engraving.is-two { max-width: calc(100% - 8px); white-space: normal; overflow-wrap: anywhere; text-wrap: balance; text-align: center; line-height: 1.02; }
 .engraving.is-empty::before { content: "Il tuo testo"; opacity: .35; }
 .laser { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--coral); box-shadow: 0 0 12px 3px rgba(226, 85, 45, .55); opacity: 0; pointer-events: none; }
 .plate.is-burning .engraving { animation: reveal .9s steps(24, end) both; }
@@ -144,7 +145,10 @@ p { margin: 0; }
 .sec-head { max-width: 560px; }
 .sec-head h2, .steps h2, .material h2, .contact h2 { font-size: clamp(28px, 7vw, 42px); }
 .sec-head p { margin-top: 12px; color: var(--ink-soft); }
-.picker-bar { width: 100%; margin-top: 26px; display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 8px 18px 8px 8px; background: var(--paper); border: 2px solid var(--navy); border-radius: 22px; color: var(--navy); cursor: pointer; text-align: left; font: inherit; transition: transform .15s var(--ease); }
+.picker-bar { width: 100%; margin-top: 26px; display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 8px 18px 8px 8px; background: var(--paper); border: 2px solid var(--navy); border-radius: 22px; color: var(--navy); cursor: pointer; text-align: left; font: inherit; position: sticky; top: max(8px, env(safe-area-inset-top, 0px)); z-index: 12; transition: transform .15s var(--ease), min-height .2s, padding .2s, box-shadow .2s; }
+.picker-bar.is-stuck { min-height: 56px; padding-block: 4px; box-shadow: 0 12px 22px -14px rgba(33, 43, 71, .55); }
+.picker-bar.is-stuck .pb-label { display: none; }
+.picker-bar.is-stuck img { width: 40px; height: 40px; }
 .picker-bar:active { transform: scale(.985); }
 .picker-bar img { width: 48px; height: 48px; flex: none; object-fit: cover; border-radius: 14px; background: #fff; }
 .pb-text { flex: 1; min-width: 0; display: grid; line-height: 1.15; }
@@ -260,8 +264,9 @@ body.sheet-open { overflow: hidden; }
 .js-motion .bench > .burin { animation-delay: .3s; }
 .js-motion .bench > .btn { animation-delay: .38s; }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
-.js-motion .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: var(--d, 0s); }
-.js-motion .reveal.is-in { opacity: 1; transform: none; }
+.js-motion .reveal { transform: translateY(18px); transition: transform .6s var(--ease); transition-delay: var(--d, 0s); } /* sempre leggibile: si muove soltanto */
+.js-motion .reveal.is-in { transform: none; }
+@media print { .js-motion .reveal { transform: none; } }
 .brand-mark { transform-origin: 50% 8%; }
 .brand:hover .brand-mark { animation: swing .9s ease-in-out; }
 @keyframes swing { 20% { transform: rotate(12deg); } 45% { transform: rotate(-8deg); } 70% { transform: rotate(4deg); } }

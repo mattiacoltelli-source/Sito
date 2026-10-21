@@ -204,60 +204,90 @@
   }
 
   var catalogo = document.getElementById("catalogo");
-  var tabs = document.getElementById("tabs");
   var items = {};
+  var order = PRODUCTS.map(function (p) { return p.id; });
+  var bar = document.getElementById("picker-bar");
+  var sheet = document.getElementById("sheet");
+  var grid = document.getElementById("sheet-grid");
+  var current = order[0];
+
+  var chev = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var arrow = function (dir) { return '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="' + (dir < 0 ? "M12 4l-6 6 6 6" : "M8 4l6 6-6 6") + '" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'; };
+
   PRODUCTS.forEach(function (p, i) {
     var item = buildItem(p, i);
     item.hidden = i > 0;
     items[p.id] = item;
     catalogo.appendChild(item);
 
-    var tab = el("button", "tab");
-    tab.type = "button"; tab.id = "tab-" + p.id; tab.dataset.id = p.id;
-    tab.setAttribute("role", "tab");
-    tab.setAttribute("aria-controls", p.id);
-    var im = new Image();
-    im.src = photoSrc(p.photos[0]); im.alt = ""; im.width = 84; im.height = 84; im.decoding = "async";
-    tab.appendChild(im);
-    tab.appendChild(el("span", "tab-name", esc(p.name)));
-    tabs.appendChild(tab);
+    // frecce e indicatore sopra la foto principale
+    var slip = item.querySelector(".slip");
+    var prev = el("button", "pn pn--prev", arrow(-1)); prev.type = "button"; prev.setAttribute("aria-label", "Bracciale precedente");
+    var next = el("button", "pn pn--next", arrow(1)); next.type = "button"; next.setAttribute("aria-label", "Bracciale successivo");
+    var pos = el("span", "pos", (i + 1) + " di " + PRODUCTS.length);
+    prev.addEventListener("click", function () { go(-1); });
+    next.addEventListener("click", function () { go(1); });
+    slip.appendChild(prev); slip.appendChild(next); slip.appendChild(pos);
+    // swipe orizzontale sulla foto
+    var sx = 0, sy = 0;
+    slip.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    slip.addEventListener("touchend", function (e) {
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    // voce nel pannello
+    var opt = el("button", "opt-model"); opt.type = "button"; opt.dataset.id = p.id;
+    var im = new Image(); im.src = photoSrc(p.photos[0]); im.alt = ""; im.width = 120; im.height = 120; im.loading = "lazy"; im.decoding = "async";
+    opt.appendChild(im); opt.appendChild(el("span", "opt-name", esc(p.name)));
+    opt.addEventListener("click", function () { selectModel(p.id, { hash: true }); closeSheet(); });
+    grid.appendChild(opt);
   });
-  tabs.setAttribute("role", "tablist");
+
+  function go(d) { selectModel(order[(order.indexOf(current) + d + order.length) % order.length], { hash: true }); }
 
   function selectModel(id, opts) {
-    if (!items[id]) id = PRODUCTS[0].id;
-    PRODUCTS.forEach(function (p) {
-      var on = p.id === id;
-      items[p.id].hidden = !on;
-      var t = document.getElementById("tab-" + p.id);
-      t.setAttribute("aria-selected", on ? "true" : "false");
-      t.tabIndex = on ? 0 : -1;
-    });
-    items[id].classList.add("is-in"); // niente attesa dello scroll per la comparsa
+    if (!items[id]) id = order[0];
+    current = id;
+    PRODUCTS.forEach(function (p) { items[p.id].hidden = p.id !== id; });
+    items[id].classList.add("is-in");
+    var p = PRODUCTS[order.indexOf(id)];
+    bar.querySelector("img").src = photoSrc(p.photos[0]);
+    bar.querySelector(".pb-name").textContent = p.name;
+    grid.querySelectorAll(".opt-model").forEach(function (o) { if (o.dataset.id === id) o.setAttribute("aria-current", "true"); else o.removeAttribute("aria-current"); });
     if (opts && opts.hash) { try { history.replaceState(null, "", "#" + id); } catch (e) { /* ok */ } }
-    if (opts && opts.scroll) {
-      var top = document.getElementById("collezione").getBoundingClientRect().top + window.scrollY - 8;
-      window.scrollTo({ top: top, behavior: reduceMotion ? "auto" : "smooth" });
-    }
-    var cur = document.getElementById("tab-" + id);
-    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center", behavior: reduceMotion ? "auto" : "smooth" });
   }
-  tabs.addEventListener("click", function (e) {
-    var b = e.target.closest(".tab");
-    if (b) selectModel(b.dataset.id, { hash: true });
+
+  var lastFocus = null;
+  function openSheet() {
+    lastFocus = document.activeElement;
+    sheet.hidden = false;
+    document.body.classList.add("sheet-open");
+    bar.setAttribute("aria-expanded", "true");
+    requestAnimationFrame(function () { sheet.classList.add("is-open"); var c = grid.querySelector("[aria-current]") || grid.firstChild; if (c) c.focus({ preventScroll: true }); });
+  }
+  function closeSheet() {
+    sheet.classList.remove("is-open");
+    document.body.classList.remove("sheet-open");
+    bar.setAttribute("aria-expanded", "false");
+    setTimeout(function () { sheet.hidden = true; }, reduceMotion ? 0 : 220);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  bar.addEventListener("click", openSheet);
+  sheet.addEventListener("click", function (e) { if (e.target.closest("[data-close]")) closeSheet(); });
+  document.addEventListener("keydown", function (e) {
+    if (sheet.hidden) return;
+    if (e.key === "Escape") closeSheet();
+    if (e.key === "Tab") { // il focus resta dentro il pannello
+      var f = sheet.querySelectorAll("button"); if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+    }
   });
-  tabs.addEventListener("keydown", function (e) {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    var ids = PRODUCTS.map(function (p) { return p.id; });
-    var cur = ids.indexOf(document.activeElement.dataset && document.activeElement.dataset.id);
-    if (cur < 0) return;
-    var next = ids[(cur + (e.key === "ArrowRight" ? 1 : ids.length - 1)) % ids.length];
-    selectModel(next, { hash: true });
-    document.getElementById("tab-" + next).focus();
-    e.preventDefault();
-  });
+
   var fromHash = location.hash.slice(1);
-  selectModel(items[fromHash] ? fromHash : PRODUCTS[0].id);
+  selectModel(items[fromHash] ? fromHash : order[0]);
   if (items[fromHash]) setTimeout(function () { document.getElementById("collezione").scrollIntoView(); }, 0);
 
   document.title = SITE.brand + " – Oggetti unici, creati per te";

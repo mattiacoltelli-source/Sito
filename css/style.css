@@ -50,7 +50,6 @@ p { margin: 0; }
 
 /* ---------- marchio ---------- */
 .brand-mark { width: 30px; height: 35px; flex: none; color: var(--navy); }
-.plate-heart path { fill: var(--coral); }
 .foot .brand-mark { color: var(--cream); }
 .foot .brand-mark { --heart: var(--coral-hi); }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; min-height: 44px; }
@@ -73,13 +72,19 @@ p { margin: 0; }
 .lede { margin: 14px auto 0; max-width: 34ch; color: var(--ink-soft); font-size: 17px; }
 
 .plate-wrap { margin: 30px auto 0; }
-.plate { position: relative; width: min(74vw, 300px); margin: 0 auto; padding-top: 15%; }
-.plate-ring { position: absolute; top: 0; left: 50%; width: 17%; aspect-ratio: 1; transform: translateX(-50%); border: 5px solid var(--navy); border-radius: 50%; }
-.plate-body { position: relative; aspect-ratio: 1; background: var(--paper); border: 6px solid var(--navy); border-radius: 28%; box-shadow: 0 18px 30px -22px rgba(33, 43, 71, .6); }
-.plate-hole { position: absolute; top: 15%; left: 50%; width: 8%; aspect-ratio: 1; transform: translateX(-50%); border: 4px solid var(--navy); border-radius: 50%; }
-.plate-heart { position: absolute; top: 27%; left: 50%; width: 29%; transform: translateX(-50%); }
-.plate-face { position: absolute; left: 9%; right: 9%; bottom: 13%; height: 25%; display: grid; place-items: center; overflow: hidden; }
-.engraving { display: block; white-space: nowrap; color: var(--navy); line-height: 1.1; text-shadow: 0 1px 0 rgba(255, 255, 255, .9); max-width: 100%; }
+.bracelet { display: flex; align-items: center; margin-inline: calc(-1 * var(--gutter)); overflow: hidden; padding: 14px 0 44px; margin-bottom: -22px; }
+.chain { flex: 1 1 0; min-width: 0; height: 26px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='26' viewBox='0 0 30 26'%3E%3Crect x='2' y='4' width='26' height='18' rx='9' fill='none' stroke='%23858c93' stroke-width='5'/%3E%3Crect x='2' y='4' width='26' height='18' rx='9' fill='none' stroke='%23e4e7e9' stroke-width='2' stroke-dasharray='34 100' stroke-dashoffset='-6'/%3E%3C/svg%3E") repeat-x center / 30px 26px; }
+.chain:first-child { background-position: right center; }
+.plate { position: relative; flex: 0 0 min(76vw, 460px); height: clamp(88px, 22vw, 124px); display: grid; align-items: center; padding: 0 clamp(22px, 5vw, 40px); border-radius: 10px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.10) 0 1px, rgba(0,0,0,.035) 1px 2px, transparent 2px 4px),
+    linear-gradient(180deg, #eef0f1 0%, #b6bcc0 44%, #d9dcde 56%, #a2a8ad 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 0 rgba(0,0,0,.28), 0 20px 26px -16px rgba(33, 43, 71, .6); }
+.plate-screw { position: absolute; top: 50%; width: 11px; height: 11px; margin-top: -5.500px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f4f6f7, #7d858a 70%); box-shadow: inset 0 0 0 1px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255,.6); }
+.plate-screw::after { content: ""; position: absolute; left: 2px; right: 2px; top: 5px; height: 1.5px; background: rgba(0,0,0,.45); transform: rotate(-25deg); }
+.plate-screw--l { left: clamp(6px, 2vw, 12px); } .plate-screw--r { right: clamp(6px, 2vw, 12px); }
+.plate-face { position: relative; overflow: hidden; height: 100%; display: grid; place-items: center; text-align: center; }
+.engraving { display: block; white-space: nowrap; color: #2a2e32; line-height: 1.1; text-shadow: 0 1px 0 rgba(255,255,255,.7), 0 -1px 0 rgba(0,0,0,.22); max-width: 100%; }
 .engraving[data-style="corsivo"] { font-family: "Allura", cursive; }
 .engraving[data-style="romano"] { font-family: "Cinzel", serif; letter-spacing: .06em; }
 .engraving[data-style="blocco"] { font-family: "Antonio", sans-serif; text-transform: uppercase; letter-spacing: .08em; }

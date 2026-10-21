@@ -22,6 +22,7 @@ window.PRODUCTS = [
   },
   {
     id: "rigido",
+    inside: true,
     name: "Cuff Rigido",
     tagline: "Fascia sottile con la frase fuori e un segreto dentro.",
     price: 29,
@@ -35,6 +36,7 @@ window.PRODUCTS = [
   },
   {
     id: "coordinate",
+    inside: true,
     name: "Coordinate",
     tagline: "Il posto del cuore, inciso come una posizione sulla mappa.",
     price: 29,

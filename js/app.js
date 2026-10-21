@@ -9,7 +9,11 @@
   var count = document.getElementById("count");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var state = { text: input.value, style: "corsivo" };
+  var state = { text: input.value, inner: "", side: "fuori", style: "corsivo" };
+  var label = document.querySelector(".burin-label");
+  var plateNote = document.querySelector(".plate-note");
+  var sideBtns = document.querySelectorAll(".side-btn");
+  function cur() { return state.side === "dentro" ? state.inner : state.text; }
   var BASE = { corsivo: 0.78, romano: 0.4, blocco: 0.52 }; // fattore sull'altezza della lastra
 
   /* ---------- Anteprima incisione ---------- */
@@ -26,14 +30,20 @@
   }
 
   function render() {
-    var t = state.text.trim();
+    var t = cur().trim();
     engraving.textContent = t;
     engraving.classList.toggle("is-empty", !t);
     engraving.dataset.style = state.style;
     plate.setAttribute("aria-label", t ? "Anteprima dell'incisione: " + t : "Anteprima dell'incisione");
     var max = input.maxLength;
-    count.textContent = state.text.length + "/" + max;
-    count.classList.toggle("is-full", state.text.length >= max);
+    count.textContent = cur().length + "/" + max;
+    count.classList.toggle("is-full", cur().length >= max);
+    var inside = state.side === "dentro";
+    plate.classList.toggle("is-inside", inside);
+    engraving.dataset.empty = inside ? "Il tuo messaggio segreto" : "Il tuo testo";
+    label.textContent = inside ? "Cosa vuoi incidere all'interno?" : "Cosa vuoi incidere fuori?";
+    input.placeholder = inside ? "Un messaggio che leggi solo tu" : "";
+    plateNote.textContent = inside ? "Interno del bracciale: la scritta resta nascosta, la leggi solo tu." : "Anteprima indicativa: l'incisione vera segue le proporzioni del modello scelto.";
     fit();
     updateLinks();
   }
@@ -45,13 +55,21 @@
     plate.classList.add("is-burning");
   }
 
-  input.addEventListener("input", function () { state.text = input.value; render(); });
+  input.addEventListener("input", function () { if (state.side === "dentro") state.inner = input.value; else state.text = input.value; render(); });
+  sideBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      state.side = b.dataset.side;
+      sideBtns.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      input.value = cur(); render(); burn();
+    });
+  });
   document.querySelectorAll('input[name="style"]').forEach(function (r) {
     r.addEventListener("change", function () { state.style = r.value; render(); burn(); });
   });
   document.querySelectorAll(".ideas button").forEach(function (b) {
     b.addEventListener("click", function () {
-      state.text = b.dataset.idea; input.value = state.text; render(); burn();
+      if (state.side === "dentro") state.inner = b.dataset.idea; else state.text = b.dataset.idea;
+      input.value = cur(); render(); burn();
     });
   });
   window.addEventListener("resize", fit);
@@ -67,7 +85,9 @@
   function messageFor(p) {
     var t = state.text.trim();
     var msg = "Ciao! Vorrei il bracciale «" + p.name + "» (" + p.price + " €).";
-    if (t) msg += " Testo da incidere: «" + t + "».";
+    if (t) msg += " Testo da incidere fuori: «" + t + "».";
+    var i = state.inner.trim();
+    if (p.inside && i) msg += " Messaggio all'interno: «" + i + "».";
     return msg;
   }
   function updateLinks() {
@@ -80,6 +100,8 @@
       el.hidden = !t;
       var q = el.querySelector("q");
       if (q) q.textContent = t;
+      var wrap = el.querySelector(".mine-in");
+      if (wrap) { var i = state.inner.trim(); wrap.hidden = !i; wrap.querySelector("q").textContent = i; }
     });
     var wa = document.getElementById("contact-wa");
     wa.href = waLink("Ciao! Vorrei informazioni sui vostri bracciali incisi.");
@@ -141,13 +163,14 @@
     info.appendChild(el("p", "tagline", esc(p.tagline)));
     info.appendChild(el("p", "price", p.price + " €" + (p.id === "coppia" ? "<small>il set di due</small>" : "")));
 
+    info.appendChild(el("p", "where", p.inside ? "Incisione <b>fuori</b> e <b>dentro</b>" : "Incisione <b>fuori</b>"));
     var dl = el("dl", "specs");
     p.specs.forEach(function (s) {
       dl.appendChild(el("div", null, "<dt>" + esc(s[0]) + "</dt><dd>" + esc(s[1]) + "</dd>"));
     });
     info.appendChild(dl);
 
-    var mine = el("p", "mine", "Con la tua incisione: <q></q> · <a href=\"#top\">cambia</a>");
+    var mine = el("p", "mine", "Fuori: <q></q>" + (p.inside ? "<span class=\"mine-in\"> · Dentro: <q class=\"in\"></q></span>" : "") + " · <a href=\"#top\">cambia</a>");
     mine.setAttribute("data-mine", "");
     info.appendChild(mine);
 

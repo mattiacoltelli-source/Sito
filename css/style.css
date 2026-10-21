@@ -71,7 +71,7 @@ p { margin: 0; }
 .bench h1 { font-size: clamp(34px, 9.5vw, 56px); font-variation-settings: "opsz" 144; }
 .lede { margin: 14px auto 0; max-width: 34ch; color: var(--ink-soft); font-size: 17px; }
 
-.plate-wrap { margin: 30px auto 0; }
+.plate-wrap { margin: 12px auto 0; }
 .bracelet { perspective: 900px; display: flex; align-items: center; margin-inline: calc(-1 * var(--gutter)); overflow: hidden; padding: 14px 0 44px; margin-bottom: -22px; }
 .chain { flex: 1 1 0; min-width: 0; height: 26px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='26' viewBox='0 0 30 26'%3E%3Crect x='2' y='4' width='26' height='18' rx='9' fill='none' stroke='%23858c93' stroke-width='5'/%3E%3Crect x='2' y='4' width='26' height='18' rx='9' fill='none' stroke='%23e4e7e9' stroke-width='2' stroke-dasharray='34 100' stroke-dashoffset='-6'/%3E%3C/svg%3E") repeat-x center / 30px 26px; }
 .chain:first-child { background-position: right center; }
@@ -92,12 +92,19 @@ p { margin: 0; }
 .engraving[data-style="corsivo"] { font-family: "Allura", cursive; }
 .engraving[data-style="romano"] { font-family: "Cinzel", serif; letter-spacing: .06em; }
 .engraving[data-style="blocco"] { font-family: "Antonio", sans-serif; text-transform: uppercase; letter-spacing: .08em; }
-.engraving.is-empty::before { content: "Il tuo testo"; opacity: .35; }
+.engraving.is-empty::before { content: attr(data-empty); opacity: .35; }
 .laser { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--coral); box-shadow: 0 0 12px 3px rgba(226, 85, 45, .55); opacity: 0; pointer-events: none; }
 .plate.is-burning .engraving { animation: reveal .9s steps(24, end) both; }
 .plate.is-burning .laser { animation: sweep .9s steps(24, end) both; }
 @keyframes reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes sweep { 0% { left: 0; opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+.side { display: inline-flex; margin-top: 26px; border: 2px solid var(--navy); border-radius: 999px; padding: 3px; gap: 2px; }
+.side-btn { min-height: 44px; min-width: 96px; padding: 0 20px; border: 0; border-radius: 999px; background: none; color: var(--navy); font: 600 16px var(--sans); cursor: pointer; transition: background .2s, color .2s; }
+.side-btn[aria-pressed="true"] { background: var(--navy); color: var(--cream); }
+.side-note { margin: 10px auto 0; max-width: 34ch; font-size: 14px; color: var(--ink-soft); }
+.plate.is-inside { background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, rgba(0,0,0,.04) 1px 2px, transparent 2px 4px), linear-gradient(180deg, #c7ccd0 0%, #8e969c 48%, #b3b9be 100%); }
+.where { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
+.where b { color: var(--navy); }
 .plate-note { margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
 
 /* ---------- form incisione ---------- */
@@ -164,6 +171,7 @@ p { margin: 0; }
 .specs dd { margin: 0; font-size: 15px; color: var(--ink-soft); max-width: 60ch; }
 .mine { margin-top: 16px; padding: 12px 16px; background: var(--paper); border-radius: 14px; font-size: 14px; }
 .mine[hidden] { display: none; }
+.mine-in[hidden] { display: none; }
 .mine q { font-weight: 600; quotes: "«" "»"; }
 .mine a { text-underline-offset: 3px; }
 .actions { margin-top: 20px; }

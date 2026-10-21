@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -40,7 +40,13 @@
   <main id="top">
     <section class="bench" aria-labelledby="h1">
       <h1 id="h1">Oggetti unici, creati per te.</h1>
-      <p class="lede">Scrivi un nome, una data o una frase. La vedi incisa sul bracciale prima di ordinarlo.</p>
+      <p class="lede">Scrivi un nome, una data o una frase, fuori e, dove previsto, anche dentro. La vedi incisa sul bracciale prima di ordinarlo.</p>
+
+      <div class="side" role="group" aria-label="Dove incidere">
+        <button type="button" class="side-btn" data-side="fuori" aria-pressed="true">Fuori</button>
+        <button type="button" class="side-btn" data-side="dentro" aria-pressed="false">Dentro</button>
+      </div>
+      <p class="side-note">Puoi scrivere fuori e, su Cuff Rigido e Coordinate, anche dentro.</p>
 
       <div class="plate-wrap">
         <div class="bracelet">
@@ -59,7 +65,7 @@
       </div>
 
       <form class="burin" id="burin" autocomplete="off" onsubmit="return false">
-        <label class="burin-label" for="text">Cosa vuoi incidere?</label>
+        <label class="burin-label" for="text">Cosa vuoi incidere fuori?</label>
         <div class="burin-row">
           <input id="text" name="text" type="text" maxlength="30" value="Sempre al tuo fianco" spellcheck="false" enterkeyhint="done">
           <span class="count" id="count" aria-live="polite">20/30</span>
@@ -95,7 +101,7 @@
         <h2 id="h-steps">Come funziona</h2>
         <ol>
           <li><strong>Scegli il bracciale.</strong> <span>Catena, rigido, pietre, cinturino o set di coppia.</span></li>
-          <li><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve. Anche un messaggio segreto all'interno, dove previsto.</span></li>
+          <li><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve fuori. Su Cuff Rigido e Coordinate anche un messaggio segreto all'interno.</span></li>
           <li><strong>Ci scrivi su WhatsApp.</strong> <span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></li>
         </ol>
       </div>
@@ -129,8 +135,8 @@
     <p class="foot-demo">Sito dimostrativo: foto, testi e prezzi sono di esempio e verranno sostituiti con quelli reali.</p>
   </footer>
 
-  <script src="js/products.js?v=4"></script>
-  <script src="js/app.js?v=4"></script>
-  <script src="js/motion.js?v=4"></script>
+  <script src="js/products.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
+  <script src="js/motion.js?v=5"></script>
 </body>
 </html>

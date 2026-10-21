@@ -144,9 +144,19 @@ p { margin: 0; }
 .sec-head { max-width: 560px; }
 .sec-head h2, .steps h2, .material h2, .contact h2 { font-size: clamp(28px, 7vw, 42px); }
 .sec-head p { margin-top: 12px; color: var(--ink-soft); }
-.catalogo { margin-top: 36px; }
-.item { display: grid; gap: 22px; padding: 36px 0; border-top: 1.5px solid var(--line); }
-.item:first-child { border-top: 0; padding-top: 0; }
+.tabs { margin-top: 28px; display: flex; gap: 10px; overflow-x: auto; padding: 4px 4px 10px; margin-inline: -4px; scrollbar-width: none; scroll-snap-type: x proximity; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: 0 0 auto; width: 84px; padding: 0; border: 0; background: none; color: var(--navy); cursor: pointer; text-align: center; display: grid; gap: 6px; scroll-snap-align: center; opacity: .62; transition: opacity .2s, transform .15s var(--ease); }
+.tab img { width: 84px; height: 84px; object-fit: cover; border-radius: 22px; border: 3px solid transparent; background: var(--paper); transition: border-color .2s; }
+.tab-name { font: 600 12px/1.2 var(--sans); }
+.tab:hover { opacity: 1; }
+.tab:active { transform: scale(.96); }
+.tab[aria-selected="true"] { opacity: 1; }
+.tab[aria-selected="true"] img { border-color: var(--coral); }
+.tab:focus-visible img { outline: 3px solid var(--coral); outline-offset: 2px; }
+.catalogo { margin-top: 18px; }
+.item[hidden] { display: none; }
+.item { display: grid; gap: 22px; padding: 18px 0 8px; }
 .slip { aspect-ratio: 1; border-radius: 28px; overflow: hidden; background: var(--paper); border: 2px solid var(--navy); }
 .slip img { width: 100%; height: 100%; object-fit: cover; transition: opacity .15s; }
 .thumbs { display: flex; gap: 10px; margin-top: 12px; }
@@ -213,8 +223,9 @@ p { margin: 0; }
 @media (min-width: 900px) {
   :root { --gutter: 32px; }
   .bench { max-width: 760px; padding-bottom: 80px; }
-  .item { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; padding: 56px 0; }
-  .item:nth-child(even) .gallery { order: 2; }
+  .item { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; padding: 28px 0 8px; }
+  .tab, .tab img { width: 104px; }
+  .tab img { height: 104px; }
   .actions .btn { width: auto; }
   .steps ol { grid-template-columns: repeat(3, 1fr); max-width: none; gap: 40px; }
   .steps li { grid-template-columns: 1fr; row-gap: 8px; }

@@ -204,7 +204,61 @@
   }
 
   var catalogo = document.getElementById("catalogo");
-  PRODUCTS.forEach(function (p, i) { catalogo.appendChild(buildItem(p, i)); });
+  var tabs = document.getElementById("tabs");
+  var items = {};
+  PRODUCTS.forEach(function (p, i) {
+    var item = buildItem(p, i);
+    item.hidden = i > 0;
+    items[p.id] = item;
+    catalogo.appendChild(item);
+
+    var tab = el("button", "tab");
+    tab.type = "button"; tab.id = "tab-" + p.id; tab.dataset.id = p.id;
+    tab.setAttribute("role", "tab");
+    tab.setAttribute("aria-controls", p.id);
+    var im = new Image();
+    im.src = photoSrc(p.photos[0]); im.alt = ""; im.width = 84; im.height = 84; im.decoding = "async";
+    tab.appendChild(im);
+    tab.appendChild(el("span", "tab-name", esc(p.name)));
+    tabs.appendChild(tab);
+  });
+  tabs.setAttribute("role", "tablist");
+
+  function selectModel(id, opts) {
+    if (!items[id]) id = PRODUCTS[0].id;
+    PRODUCTS.forEach(function (p) {
+      var on = p.id === id;
+      items[p.id].hidden = !on;
+      var t = document.getElementById("tab-" + p.id);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+    items[id].classList.add("is-in"); // niente attesa dello scroll per la comparsa
+    if (opts && opts.hash) { try { history.replaceState(null, "", "#" + id); } catch (e) { /* ok */ } }
+    if (opts && opts.scroll) {
+      var top = document.getElementById("collezione").getBoundingClientRect().top + window.scrollY - 8;
+      window.scrollTo({ top: top, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+    var cur = document.getElementById("tab-" + id);
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center", behavior: reduceMotion ? "auto" : "smooth" });
+  }
+  tabs.addEventListener("click", function (e) {
+    var b = e.target.closest(".tab");
+    if (b) selectModel(b.dataset.id, { hash: true });
+  });
+  tabs.addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    var ids = PRODUCTS.map(function (p) { return p.id; });
+    var cur = ids.indexOf(document.activeElement.dataset && document.activeElement.dataset.id);
+    if (cur < 0) return;
+    var next = ids[(cur + (e.key === "ArrowRight" ? 1 : ids.length - 1)) % ids.length];
+    selectModel(next, { hash: true });
+    document.getElementById("tab-" + next).focus();
+    e.preventDefault();
+  });
+  var fromHash = location.hash.slice(1);
+  selectModel(items[fromHash] ? fromHash : PRODUCTS[0].id);
+  if (items[fromHash]) setTimeout(function () { document.getElementById("collezione").scrollIntoView(); }, 0);
 
   document.title = SITE.brand + " – Oggetti unici, creati per te";
   render();

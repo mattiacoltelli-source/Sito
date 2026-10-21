@@ -92,20 +92,12 @@ p { margin: 0; }
 .engraving[data-style="corsivo"] { font-family: "Allura", cursive; }
 .engraving[data-style="romano"] { font-family: "Cinzel", serif; letter-spacing: .06em; }
 .engraving[data-style="blocco"] { font-family: "Antonio", sans-serif; text-transform: uppercase; letter-spacing: .08em; }
-.engraving.is-empty::before { content: attr(data-empty); opacity: .35; }
+.engraving.is-empty::before { content: "Il tuo testo"; opacity: .35; }
 .laser { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--coral); box-shadow: 0 0 12px 3px rgba(226, 85, 45, .55); opacity: 0; pointer-events: none; }
 .plate.is-burning .engraving { animation: reveal .9s steps(24, end) both; }
 .plate.is-burning .laser { animation: sweep .9s steps(24, end) both; }
 @keyframes reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes sweep { 0% { left: 0; opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
-.flip { position: absolute; right: 8px; bottom: -18px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 2px solid var(--navy); border-radius: 999px; background: var(--cream); color: var(--navy); font: 600 14px var(--sans); cursor: pointer; transition: background .2s, color .2s; }
-.flip svg { width: 16px; height: 16px; }
-.flip:hover, .flip[aria-pressed="true"] { background: var(--navy); color: var(--cream); }
-.plate.is-flipping { animation: flip .5s var(--ease); }
-@keyframes flip { from { transform: perspective(700px) rotateX(-85deg); opacity: .2; } }
-.plate.is-inside { background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, rgba(0,0,0,.04) 1px 2px, transparent 2px 4px), linear-gradient(180deg, #c7ccd0 0%, #8e969c 48%, #b3b9be 100%); }
-.where { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
-.where b { color: var(--navy); }
 .plate-note { margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
 
 /* ---------- form incisione ---------- */
@@ -170,9 +162,21 @@ p { margin: 0; }
 .specs div { display: grid; gap: 2px; padding: 12px 0; border-top: 1px solid var(--line); }
 .specs dt { font-weight: 600; font-size: 14px; }
 .specs dd { margin: 0; font-size: 15px; color: var(--ink-soft); max-width: 60ch; }
+.opts { margin: 18px 0 0; padding: 0; border: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.opts legend { float: left; margin: 0 12px 0 0; padding: 0; font-weight: 600; font-size: 14px; line-height: 44px; }
+.opts label { cursor: pointer; }
+.opts input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.opts .chip { font-size: 15px; gap: 6px; }
+.opts .chip small { font-size: 13px; opacity: .85; }
+.opts input:checked + .chip { background: var(--navy); color: var(--cream); }
+.opts input:focus-visible + .chip { outline: 3px solid var(--coral); outline-offset: 3px; }
+.inside { flex-basis: 100%; margin-top: 4px; padding: 14px 16px 16px; background: var(--paper); border: 2px solid var(--navy); border-radius: 18px; display: grid; gap: 8px; }
+.inside[hidden] { display: none; }
+.inside-label { font-weight: 600; font-size: 15px; }
+.inside input[type="text"] { width: 100%; min-height: 48px; padding: 0 14px; font: 500 16px var(--sans); color: var(--navy); background: #fff; border: 2px solid var(--navy); border-radius: 12px; }
+.inside-note { font-size: 13px; color: var(--ink-soft); }
 .mine { margin-top: 16px; padding: 12px 16px; background: var(--paper); border-radius: 14px; font-size: 14px; }
 .mine[hidden] { display: none; }
-.mine-in[hidden] { display: none; }
 .mine q { font-weight: 600; quotes: "«" "»"; }
 .mine a { text-underline-offset: 3px; }
 .actions { margin-top: 20px; }

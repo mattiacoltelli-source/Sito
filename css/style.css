@@ -71,7 +71,7 @@ p { margin: 0; }
 .bench h1 { font-size: clamp(34px, 9.5vw, 56px); font-variation-settings: "opsz" 144; }
 .lede { margin: 14px auto 0; max-width: 34ch; color: var(--ink-soft); font-size: 17px; }
 
-.plate-wrap { margin: 12px auto 0; }
+.plate-wrap { margin: 30px auto 0; }
 .bracelet { perspective: 900px; display: flex; align-items: center; margin-inline: calc(-1 * var(--gutter)); overflow: hidden; padding: 14px 0 44px; margin-bottom: -22px; }
 .chain { flex: 1 1 0; min-width: 0; height: 26px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='26' viewBox='0 0 30 26'%3E%3Crect x='2' y='4' width='26' height='18' rx='9' fill='none' stroke='%23858c93' stroke-width='5'/%3E%3Crect x='2' y='4' width='26' height='18' rx='9' fill='none' stroke='%23e4e7e9' stroke-width='2' stroke-dasharray='34 100' stroke-dashoffset='-6'/%3E%3C/svg%3E") repeat-x center / 30px 26px; }
 .chain:first-child { background-position: right center; }
@@ -98,10 +98,11 @@ p { margin: 0; }
 .plate.is-burning .laser { animation: sweep .9s steps(24, end) both; }
 @keyframes reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes sweep { 0% { left: 0; opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
-.side { display: inline-flex; margin-top: 26px; border: 2px solid var(--navy); border-radius: 999px; padding: 3px; gap: 2px; }
-.side-btn { min-height: 44px; min-width: 96px; padding: 0 20px; border: 0; border-radius: 999px; background: none; color: var(--navy); font: 600 16px var(--sans); cursor: pointer; transition: background .2s, color .2s; }
-.side-btn[aria-pressed="true"] { background: var(--navy); color: var(--cream); }
-.side-note { margin: 10px auto 0; max-width: 34ch; font-size: 14px; color: var(--ink-soft); }
+.flip { position: absolute; right: 8px; bottom: -18px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 2px solid var(--navy); border-radius: 999px; background: var(--cream); color: var(--navy); font: 600 14px var(--sans); cursor: pointer; transition: background .2s, color .2s; }
+.flip svg { width: 16px; height: 16px; }
+.flip:hover, .flip[aria-pressed="true"] { background: var(--navy); color: var(--cream); }
+.plate.is-flipping { animation: flip .5s var(--ease); }
+@keyframes flip { from { transform: perspective(700px) rotateX(-85deg); opacity: .2; } }
 .plate.is-inside { background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, rgba(0,0,0,.04) 1px 2px, transparent 2px 4px), linear-gradient(180deg, #c7ccd0 0%, #8e969c 48%, #b3b9be 100%); }
 .where { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
 .where b { color: var(--navy); }

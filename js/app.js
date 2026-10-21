@@ -12,7 +12,8 @@
   var state = { text: input.value, inner: "", side: "fuori", style: "corsivo" };
   var label = document.querySelector(".burin-label");
   var plateNote = document.querySelector(".plate-note");
-  var sideBtns = document.querySelectorAll(".side-btn");
+  var flip = document.getElementById("flip");
+  var flipLabel = document.getElementById("flip-label");
   function cur() { return state.side === "dentro" ? state.inner : state.text; }
   var BASE = { corsivo: 0.78, romano: 0.4, blocco: 0.52 }; // fattore sull'altezza della lastra
 
@@ -43,7 +44,7 @@
     engraving.dataset.empty = inside ? "Il tuo messaggio segreto" : "Il tuo testo";
     label.textContent = inside ? "Cosa vuoi incidere all'interno?" : "Cosa vuoi incidere fuori?";
     input.placeholder = inside ? "Un messaggio che leggi solo tu" : "";
-    plateNote.textContent = inside ? "Interno del bracciale: la scritta resta nascosta, la leggi solo tu." : "Anteprima indicativa: l'incisione vera segue le proporzioni del modello scelto.";
+    plateNote.textContent = inside ? "Interno del bracciale: la scritta resta nascosta, la leggi solo tu." : "Anteprima indicativa. Su Cuff Rigido e Coordinate puoi incidere anche all'interno: tocca «Dentro».";
     fit();
     updateLinks();
   }
@@ -56,13 +57,16 @@
   }
 
   input.addEventListener("input", function () { if (state.side === "dentro") state.inner = input.value; else state.text = input.value; render(); });
-  sideBtns.forEach(function (b) {
-    b.addEventListener("click", function () {
-      state.side = b.dataset.side;
-      sideBtns.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-      input.value = cur(); render(); burn();
-    });
+  flip.addEventListener("click", function () {
+    state.side = state.side === "dentro" ? "fuori" : "dentro";
+    var inside = state.side === "dentro";
+    flip.setAttribute("aria-pressed", inside ? "true" : "false");
+    flipLabel.textContent = inside ? "Fuori" : "Dentro";
+    input.value = cur(); render();
+    if (!reduceMotion) { plate.classList.remove("is-flipping"); void plate.offsetWidth; plate.classList.add("is-flipping"); }
+    burn();
   });
+
   document.querySelectorAll('input[name="style"]').forEach(function (r) {
     r.addEventListener("change", function () { state.style = r.value; render(); burn(); });
   });

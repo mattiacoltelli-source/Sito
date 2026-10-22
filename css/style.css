@@ -94,11 +94,17 @@ p { margin: 0; }
 .engraving[data-style="blocco"] { font-family: "Antonio", sans-serif; text-transform: uppercase; letter-spacing: .08em; }
 .engraving.is-two { max-width: calc(100% - 8px); white-space: normal; overflow-wrap: anywhere; text-wrap: balance; text-align: center; line-height: 1.02; }
 .engraving.is-empty::before { content: "Il tuo testo"; opacity: .35; }
-.laser { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--coral); box-shadow: 0 0 12px 3px rgba(226, 85, 45, .55); opacity: 0; pointer-events: none; }
-.plate.is-burning .engraving { animation: reveal .9s steps(24, end) both; }
-.plate.is-burning .laser { animation: sweep .9s steps(24, end) both; }
-@keyframes reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes sweep { 0% { left: 0; opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+.burnbox { position: relative; display: block; max-width: 100%; }
+@property --p { syntax: "<percentage>"; inherits: true; initial-value: 120%; }
+.plate { --p: 120%; }
+.engraving { -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--p) - 18%), transparent var(--p)); mask-image: linear-gradient(90deg, #000 calc(var(--p) - 18%), transparent var(--p)); }
+/* riflesso chiaro e sottile che attraversa il metallo, mentre la scritta emerge dietro di lui */
+.laser { position: absolute; top: -10px; bottom: -10px; left: var(--p); width: 34px; margin-left: -17px; pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg, transparent 46.500%, rgba(255, 252, 244, .95) 50%, transparent 53.500%), linear-gradient(90deg, transparent, rgba(255, 250, 238, .5) 50%, transparent); }
+.plate.is-burning { animation: etch .95s cubic-bezier(.45, .05, .25, 1) both; }
+.plate.is-burning .laser { animation: glint .95s cubic-bezier(.45, .05, .25, 1) both; }
+@keyframes etch { from { --p: -18%; } to { --p: 120%; } }
+@keyframes glint { 0% { opacity: 0; } 10% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; } }
 .plate-note { margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
 
 /* ---------- form incisione ---------- */
@@ -192,9 +198,24 @@ body.sheet-open { overflow: hidden; }
 .thumb:hover { opacity: 1; }
 .info h3 { font-size: clamp(26px, 6.5vw, 34px); }
 .tagline { margin-top: 8px; color: var(--ink-soft); }
-.price { margin-top: 14px; font: 700 28px/1 var(--serif); font-variant-numeric: lining-nums; }
+.price { margin-top: 14px; font: 700 28px/1 var(--serif); font-variant-numeric: lining-nums tabular-nums; }
+.price .pv { display: inline-block; }
+.price.tick .pv { animation: pvIn .32s var(--ease) both; }
+.price.tick[data-dir="down"] .pv { animation-name: pvInDown; }
+.price.tick .pn-note { animation: noteIn .35s var(--ease) both; }
+@keyframes pvIn { from { transform: translateY(.45em); opacity: .15; } }
+@keyframes pvInDown { from { transform: translateY(-.45em); opacity: .15; } }
+@keyframes noteIn { from { opacity: 0; } }
 .price small { font: 400 14px var(--sans); color: var(--ink-soft); margin-left: 8px; }
-.specs { margin: 20px 0 0; display: grid; gap: 0; }
+.more { margin-top: 14px; border-top: 1px solid var(--line); }
+.more-btn { width: 100%; min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0; background: none; border: 0; color: var(--navy); font: 600 15px var(--sans); cursor: pointer; text-align: left; }
+.more-btn svg { width: 20px; height: 20px; flex: none; transition: transform .3s var(--ease); }
+.more.is-open .more-btn svg { transform: rotate(180deg); }
+.more-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s var(--ease); }
+.more.is-open .more-body { grid-template-rows: 1fr; }
+.more-in { overflow: hidden; min-height: 0; }
+.more:not(.is-open) .more-in { visibility: hidden; transition: visibility 0s .32s; }
+.specs { margin: 4px 0 6px; display: grid; gap: 0; }
 .specs div { display: grid; gap: 2px; padding: 12px 0; border-top: 1px solid var(--line); }
 .specs dt { font-weight: 600; font-size: 14px; }
 .specs dd { margin: 0; font-size: 15px; color: var(--ink-soft); max-width: 60ch; }

@@ -154,10 +154,17 @@
     info.appendChild(el("h3", null, esc(p.name))).id = "t-" + p.id;
     info.appendChild(el("p", "tagline", esc(p.tagline)));
     var priceEl = el("p", "price");
+    var lastTotal = null;
     function setPrice() {
       var note = p.id === "coppia" ? "il set di due" : "";
       if (p.insidePrice) note = p.double ? p.price + " € + " + p.insidePrice + " € per la seconda incisione" : "+ " + p.insidePrice + " € se incidi anche dentro";
-      priceEl.innerHTML = totalOf(p) + " €" + (note ? "<small>" + note + "</small>" : "");
+      var total = totalOf(p);
+      priceEl.innerHTML = '<span class="pv">' + total + " €</span>" + (note ? '<small class="pn-note">' + note + "</small>" : "");
+      if (lastTotal !== null && lastTotal !== total && !reduceMotion) { // cambia il prezzo: il numero scivola al suo posto
+        priceEl.classList.remove("tick"); void priceEl.offsetWidth; priceEl.classList.add("tick");
+        priceEl.dataset.dir = total > lastTotal ? "up" : "down";
+      }
+      lastTotal = total;
     }
     setPrice();
     info.appendChild(priceEl);
@@ -166,7 +173,23 @@
     p.specs.forEach(function (s) {
       dl.appendChild(el("div", null, "<dt>" + esc(s[0]) + "</dt><dd>" + esc(s[1]) + "</dd>"));
     });
-    info.appendChild(dl);
+    var more = el("div", "more");
+    var toggle = el("button", "more-btn", "<span>Com'è fatto</span><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M5 8l5 5 5-5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>");
+    toggle.type = "button";
+    toggle.id = "more-btn-" + p.id;
+    toggle.setAttribute("aria-controls", "more-body-" + p.id);
+    var body = el("div", "more-body");
+    body.id = "more-body-" + p.id;
+    body.setAttribute("role", "region");
+    body.setAttribute("aria-labelledby", toggle.id);
+    var moreIn = el("div", "more-in");
+    moreIn.appendChild(dl);
+    body.appendChild(moreIn);
+    function setMore(open) { more.classList.toggle("is-open", open); toggle.setAttribute("aria-expanded", open ? "true" : "false"); }
+    setMore(window.matchMedia("(min-width: 900px)").matches); // su schermi larghi c'è spazio: aperta
+    toggle.addEventListener("click", function () { setMore(!more.classList.contains("is-open")); });
+    more.appendChild(toggle); more.appendChild(body);
+    info.appendChild(more);
 
     if (p.insidePrice) {
       var box = el("fieldset", "opts");
@@ -196,7 +219,7 @@
         if (p.double) inp.focus();
       });
       inp.addEventListener("input", function () { p.inner = inp.value; updateLinks(); });
-      info.insertBefore(box, dl);
+      info.insertBefore(box, more);
     }
 
     var mine = el("p", "mine", "Con la tua incisione: <q></q> · <a href=\"#top\">cambia</a>");

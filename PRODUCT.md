@@ -28,7 +28,7 @@ Orders are handled by contact (WhatsApp/email) in this demo; no cart, checkout o
 
 ## Capabilities and Constraints
 
-- Brand name: "Fatto per Te Lab" (tagline "Oggetti unici, creati per te"). Lives in SITE.brand (js/products.js) and index.html.
+- Brand name: "Lesna Lab" (tagline "Oggetti unici, creati per te"). Lives in SITE.brand (js/products.js) and index.html.
 - Site copy in Italian. Prices in EUR.
 - 6 products only; catalogue data kept in one JS/JSON structure so it can grow.
 - Product photos and some descriptive facts were taken as reference from almendra.store at the user's request. They are placeholders for the demo; the friend's own photos and wording must replace them before any real launch.

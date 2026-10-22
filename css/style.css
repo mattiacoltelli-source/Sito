@@ -1,4 +1,4 @@
-/* Fatto per Te Lab – palette dal logo: blu notte, crema, corallo */
+/* Lesna Lab – palette dal logo: blu notte, crema, corallo */
 @font-face { font-family: "Fraunces"; src: url("../assets/fonts/Fraunces-var.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 @font-face { font-family: "Space Grotesk"; src: url("../assets/fonts/SpaceGrotesk-var.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
 @font-face { font-family: "Space Mono"; src: url("../assets/fonts/SpaceMono-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
@@ -49,13 +49,9 @@ p { margin: 0; }
 .skip:focus { left: 8px; }
 
 /* ---------- marchio ---------- */
-.brand-mark { width: 30px; height: 35px; flex: none; color: var(--navy); }
-.foot .brand-mark { color: var(--cream); }
-.foot .brand-mark { --heart: var(--coral-hi); }
+.brand-logo { height: 46px; width: auto; aspect-ratio: 1900 / 568; flex: none; color: var(--navy); --logo-accent: var(--coral); display: block; }
+.foot .brand-logo { height: 52px; color: var(--cream); --logo-accent: var(--coral-hi); }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; min-height: 44px; }
-.brand-name { font: 700 22px/1 var(--serif); letter-spacing: -.01em; display: inline-flex; flex-direction: column; gap: 3px; }
-.brand-lab { font: 400 10px/1 var(--mono); letter-spacing: .38em; display: flex; align-items: center; gap: 8px; }
-.brand-lab::before { content: ""; width: 14px; height: 2px; background: var(--coral); }
 
 /* ---------- header ---------- */
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px var(--gutter); max-width: var(--max); margin: 0 auto;  flex-wrap: wrap; row-gap: 4px; }
@@ -289,9 +285,6 @@ body.sheet-open { overflow: hidden; }
 .js-motion .reveal { transform: translateY(18px); transition: transform .6s var(--ease); transition-delay: var(--d, 0s); } /* sempre leggibile: si muove soltanto */
 .js-motion .reveal.is-in { transform: none; }
 @media print { .js-motion .reveal { transform: none; } }
-.brand-mark { transform-origin: 50% 8%; }
-.brand:hover .brand-mark { animation: swing .9s ease-in-out; }
-@keyframes swing { 20% { transform: rotate(12deg); } 45% { transform: rotate(-8deg); } 70% { transform: rotate(4deg); } }
 .slip img { transition: opacity .15s, transform .6s var(--ease); }
 .item:hover .slip img { transform: scale(1.03); }
 @media (prefers-reduced-motion: reduce) {

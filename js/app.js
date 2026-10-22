@@ -332,7 +332,11 @@
 
   var fromHash = location.hash.slice(1);
   selectModel(items[fromHash] ? fromHash : order[0]);
-  if (items[fromHash]) setTimeout(function () { document.getElementById("collezione").scrollIntoView(); }, 0);
+  // la pagina si apre sempre in cima, anche con un indirizzo che contiene #modello o dopo una ricarica
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+  requestAnimationFrame(function () { window.scrollTo(0, 0); });
+  window.addEventListener("load", function () { window.scrollTo(0, 0); });
 
   document.title = SITE.brand + " – Oggetti unici, creati per te";
   render();

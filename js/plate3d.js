@@ -4,17 +4,20 @@
   "use strict";
   var stage = document.getElementById("stage3d");
   if (!stage) return;
-  var nav = navigator, conn = nav.connection || {};
-  if (conn.saveData) return;
-  try { var t = document.createElement("canvas"); if (!(t.getContext("webgl") || t.getContext("experimental-webgl"))) return; } catch (e) { return; }
+  var wrap = stage.parentNode, conn = navigator.connection || {};
+  function fail() { wrap.classList.remove("has-3d"); wrap.classList.add("no-3d"); } // torna l'anteprima in CSS
+  if (conn.saveData) return fail();
+  try { var t = document.createElement("canvas"); if (!(t.getContext("webgl") || t.getContext("experimental-webgl"))) return fail(); } catch (e) { return fail(); }
 
   function load() {
     var s = document.createElement("script");
     s.src = "js/three.min.js?v=1"; s.async = true;
-    s.onload = function () { try { init(); } catch (e) { stage.parentNode.classList.remove("has-3d"); } };
+    s.onload = function () { try { init(); } catch (e) { fail(); } };
+    s.onerror = fail;
     document.head.appendChild(s);
   }
   if (document.readyState === "complete") start(); else window.addEventListener("load", start);
+  setTimeout(function () { if (!wrap.classList.contains("has-3d")) fail(); }, 9000);
   function start() { if ("requestIdleCallback" in window) requestIdleCallback(load, { timeout: 1500 }); else setTimeout(load, 300); }
 
   function init() {

@@ -299,3 +299,8 @@ body.sheet-open { overflow: hidden; }
 .stage3d canvas { display: block; width: 100%; height: 100%; }
 .replay3d { position: absolute; top: 0; right: 0; min-height: 44px; padding: 0 10px; border: 0; background: none; color: var(--ink-soft); font: 500 13px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .replay3d:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+.try3d .plate-wrap:not(.no-3d) .bracelet { display: none; }
+.try3d .plate-wrap:not(.no-3d) .stage3d { display: block; visibility: hidden; }
+.plate-wrap.has-3d .stage3d { visibility: visible; animation: fade3d .5s ease-out both; }
+@keyframes fade3d { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .plate-wrap.has-3d .stage3d { animation: none; } }

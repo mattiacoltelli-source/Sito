@@ -291,3 +291,11 @@ body.sheet-open { overflow: hidden; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Anteprima 3D della targhetta: compare solo quando e' pronta, altrimenti resta quella in CSS */
+.stage3d { display: none; position: relative; width: 100%; aspect-ratio: 2 / 1; max-height: 250px; margin: 0 auto; }
+.plate-wrap.has-3d .bracelet { display: none; }
+.plate-wrap.has-3d .stage3d { display: block; }
+.stage3d canvas { display: block; width: 100%; height: 100%; }
+.replay3d { position: absolute; top: 0; right: 0; min-height: 44px; padding: 0 10px; border: 0; background: none; color: var(--ink-soft); font: 500 13px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.replay3d:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }

@@ -49,6 +49,11 @@
     updateLinks();
   }
 
+  // avvisa l'anteprima 3D (js/plate3d.js), se c'e'
+  function engrave(style) {
+    document.dispatchEvent(new CustomEvent("lesna:engrave", { detail: { text: state.text, style: style || null } }));
+  }
+
   function burn() {
     if (reduceMotion) return;
     plate.classList.remove("is-burning");
@@ -56,13 +61,13 @@
     plate.classList.add("is-burning");
   }
 
-  input.addEventListener("input", function () { state.text = input.value; render(); });
+  input.addEventListener("input", function () { state.text = input.value; render(); engrave(); });
   document.querySelectorAll('input[name="style"]').forEach(function (r) {
-    r.addEventListener("change", function () { state.style = r.value; render(); burn(); });
+    r.addEventListener("change", function () { state.style = r.value; render(); burn(); engrave(r.value); });
   });
   document.querySelectorAll(".ideas button").forEach(function (b) {
     b.addEventListener("click", function () {
-      state.text = b.dataset.idea; input.value = state.text; render(); burn();
+      state.text = b.dataset.idea; input.value = state.text; render(); burn(); engrave();
     });
   });
   window.addEventListener("resize", fit);

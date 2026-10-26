@@ -49,7 +49,7 @@
     if (!input) return;
     input.value = C[act < 0 ? 0 : act].x;
     input.dispatchEvent(new Event("input", { bubbles: true }));
-    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    if (window.lesnaOpenCustom) window.lesnaOpenCustom();
   });
 
   v.addEventListener("seeked", function () { pending = false; });

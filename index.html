@@ -22,7 +22,7 @@
   <link rel="preload" href="assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <script>try{var c=document.createElement("canvas"),n=navigator.connection;if((c.getContext("webgl")||c.getContext("experimental-webgl"))&&!(n&&n.saveData))document.documentElement.classList.add("try3d"),["js/three.min.js?v=1"].forEach(function(u){var l=document.createElement("link");l.rel="preload";l.as="script";l.fetchPriority="high";l.href=u;document.head.appendChild(l)}),["Allura","Cinzel-500","Antonio-400"].forEach(function(f){var l=document.createElement("link");l.rel="preload";l.as="font";l.type="font/ttf";l.crossOrigin="";l.href="assets/fonts/"+f+".ttf";document.head.appendChild(l)})}catch(e){}</script>
-  <link rel="stylesheet" href="css/style.css?v=25">
+  <link rel="stylesheet" href="css/style.css?v=26">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -38,87 +38,36 @@
     <nav class="nav" aria-label="Principale">
       <a class="nav-opt" href="#collezione">Bracciali</a>
       <a class="nav-opt" href="#come-funziona">Come funziona</a>
-      <a href="#contatti" class="nav-cta">Scrivici</a>
+      <a class="nav-opt" href="#contatti">Scrivici</a>
+      <button type="button" class="nav-cta" data-open-custom>Personalizza</button>
     </nav>
   </header>
 
   <main id="top">
-    <section class="bench" aria-labelledby="h1">
-      <h1 id="h1">Oggetti unici, creati per te.</h1>
-      <p class="lede">Scrivi un nome, una data o una frase. La vedi incisa sul bracciale prima di ordinarlo.</p>
-
-      <div class="plate-wrap">
-        <div class="bracelet">
-          <span class="chain" aria-hidden="true"></span>
-          <div class="plate" id="plate" role="img" aria-label="Anteprima dell'incisione">
-            <span class="plate-screw plate-screw--l" aria-hidden="true"></span>
-            <span class="plate-screw plate-screw--r" aria-hidden="true"></span>
-            <div class="plate-face">
-              <span class="burnbox"><span class="engraving" id="engraving" data-style="corsivo"></span><span class="laser" id="laser" aria-hidden="true"></span></span>
-            </div>
-          </div>
-          <span class="chain" aria-hidden="true"></span>
-        </div>
-        <div class="stage3d" id="stage3d" role="img" aria-label="Anteprima dell'incisione">
-          <canvas id="gl3d"></canvas>
-          <button type="button" class="replay3d" id="replay3d">Rivedi</button>
-        </div>
-        <p class="plate-note">Anteprima indicativa: l'incisione vera segue le proporzioni del modello scelto.</p>
-      </div>
-
-      <form class="burin" id="burin" autocomplete="off" onsubmit="return false">
-        <label class="burin-label" for="text">Cosa vuoi incidere?</label>
-        <div class="burin-row">
-          <input id="text" name="text" type="text" maxlength="30" value="Sempre al tuo fianco" spellcheck="false" enterkeyhint="done">
-          <span class="count" id="count" aria-live="polite">20/30</span>
-        </div>
-        <div class="tools">
-          <button type="button" class="tool" id="tool-style" aria-expanded="false" aria-controls="panel-style"><span class="tool-k">Stile</span><span class="tool-v" id="tool-style-v" data-style="corsivo">Corsivo</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button type="button" class="tool" id="tool-ideas" aria-expanded="false" aria-controls="panel-ideas"><span class="tool-v">Prova con</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        </div>
-        <div class="tool-panel" id="panel-style" hidden>
-          <fieldset class="styles">
-            <legend>Stile</legend>
-            <label><input type="radio" name="style" value="corsivo" checked><span class="chip chip--corsivo">Corsivo</span></label>
-            <label><input type="radio" name="style" value="romano"><span class="chip chip--romano">Romano</span></label>
-            <label><input type="radio" name="style" value="blocco"><span class="chip chip--blocco">Blocco</span></label>
-          </fieldset>
-        </div>
-        <div class="tool-panel" id="panel-ideas" hidden>
-          <div class="ideas" role="group" aria-label="Idee veloci">
-            <button type="button" data-idea="Sempre al tuo fianco">una frase</button>
-            <button type="button" data-idea="12.06.2019">una data</button>
-            <button type="button" data-idea="44°15'25&quot;N 12°21'19&quot;E">coordinate</button>
-            <button type="button" data-idea="Marco &amp; Giulia">due nomi</button>
-          </div>
-        </div>
-      </form>
-
-      <a class="btn btn--solid" href="#collezione">Scegli il bracciale <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M4 11l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </section>
-
-    <section class="film" id="video" aria-labelledby="h-film">
-      <div class="film-in">
+    <section class="open" id="video" aria-labelledby="h1">
+      <div class="open-in">
+        <h1 id="h1">Oggetti unici, creati per te.</h1>
+        <p class="open-sub">Guarda come restano incisi un nome, una data, un luogo. Poi prova il tuo.</p>
         <figure class="film-frame">
-          <video id="film" muted loop playsinline preload="metadata" poster="assets/video/lesna-promo-poster.jpg?v=25" aria-label="Video: bracciali Lesna Lab con nomi, date e coordinate incisi">
-            <source src="assets/video/lesna-promo.webm?v=25" type="video/webm">
-            <source src="assets/video/lesna-promo.mp4?v=25" type="video/mp4">
+          <video id="film" muted loop playsinline preload="metadata" poster="assets/video/lesna-promo-poster.jpg?v=26" aria-label="Video: bracciali Lesna Lab con nomi, date e coordinate incisi">
+            <source src="assets/video/lesna-promo.webm?v=26" type="video/webm">
+            <source src="assets/video/lesna-promo.mp4?v=26" type="video/mp4">
           </video>
           <button type="button" class="film-toggle" id="film-toggle" data-paused="false" aria-label="Metti in pausa il video">
             <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h3.5v14H5zM11.5 3H15v14h-3.5z" fill="currentColor"/></svg>
             <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3l12 7-12 7z" fill="currentColor"/></svg>
           </button>
         </figure>
-        <div class="film-copy">
-          <h2 id="h-film">Un nome, una data, un luogo.</h2>
-          <div class="film-chips" id="film-chips" role="group" aria-label="Esempi dal video"></div>
-          <div class="film-live">
-            <p class="film-ex" id="film-ex" aria-live="polite"></p>
-            <button type="button" class="btn btn--solid" id="film-try">Provala sulla targhetta</button>
-          </div>
+        <div class="film-chips" id="film-chips" role="group" aria-label="Esempi dal video"></div>
+        <div class="film-live">
+          <p class="film-ex" id="film-ex" aria-live="polite"></p>
+          <button type="button" class="btn btn--solid" id="film-try">Provala sulla targhetta</button>
         </div>
+        <button type="button" class="btn btn--coral open-cta" data-open-custom>Personalizza il tuo bracciale <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </section>
+
+
 
     <section class="collection" id="collezione" aria-labelledby="h-coll">
       <header class="sec-head">
@@ -177,6 +126,66 @@
     </section>
   </main>
 
+  <div class="view" id="custom" role="dialog" aria-modal="true" aria-labelledby="h-custom" inert>
+    <div class="view-bar">
+      <button type="button" class="view-back" data-close-custom aria-label="Torna indietro"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Indietro</button>
+    </div>
+    <section class="bench" aria-labelledby="h-custom">
+      <h2 id="h-custom">Personalizza la tua incisione</h2>
+      <p class="lede">Scrivi un nome, una data o una frase. La vedi incisa sul bracciale prima di ordinarlo.</p>
+
+      <div class="plate-wrap">
+        <div class="bracelet">
+          <span class="chain" aria-hidden="true"></span>
+          <div class="plate" id="plate" role="img" aria-label="Anteprima dell'incisione">
+            <span class="plate-screw plate-screw--l" aria-hidden="true"></span>
+            <span class="plate-screw plate-screw--r" aria-hidden="true"></span>
+            <div class="plate-face">
+              <span class="burnbox"><span class="engraving" id="engraving" data-style="corsivo"></span><span class="laser" id="laser" aria-hidden="true"></span></span>
+            </div>
+          </div>
+          <span class="chain" aria-hidden="true"></span>
+        </div>
+        <div class="stage3d" id="stage3d" role="img" aria-label="Anteprima dell'incisione">
+          <canvas id="gl3d"></canvas>
+          <button type="button" class="replay3d" id="replay3d">Rivedi</button>
+        </div>
+        <p class="plate-note">Anteprima indicativa: l'incisione vera segue le proporzioni del modello scelto.</p>
+      </div>
+
+      <form class="burin" id="burin" autocomplete="off" onsubmit="return false">
+        <label class="burin-label" for="text">Cosa vuoi incidere?</label>
+        <div class="burin-row">
+          <input id="text" name="text" type="text" maxlength="30" value="Sempre al tuo fianco" spellcheck="false" enterkeyhint="done">
+          <span class="count" id="count" aria-live="polite">20/30</span>
+        </div>
+        <div class="tools">
+          <button type="button" class="tool" id="tool-style" aria-expanded="false" aria-controls="panel-style"><span class="tool-k">Stile</span><span class="tool-v" id="tool-style-v" data-style="corsivo">Corsivo</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="tool" id="tool-ideas" aria-expanded="false" aria-controls="panel-ideas"><span class="tool-v">Prova con</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="tool-panel" id="panel-style" hidden>
+          <fieldset class="styles">
+            <legend>Stile</legend>
+            <label><input type="radio" name="style" value="corsivo" checked><span class="chip chip--corsivo">Corsivo</span></label>
+            <label><input type="radio" name="style" value="romano"><span class="chip chip--romano">Romano</span></label>
+            <label><input type="radio" name="style" value="blocco"><span class="chip chip--blocco">Blocco</span></label>
+          </fieldset>
+        </div>
+        <div class="tool-panel" id="panel-ideas" hidden>
+          <div class="ideas" role="group" aria-label="Idee veloci">
+            <button type="button" data-idea="Sempre al tuo fianco">una frase</button>
+            <button type="button" data-idea="12.06.2019">una data</button>
+            <button type="button" data-idea="44°15'25&quot;N 12°21'19&quot;E">coordinate</button>
+            <button type="button" data-idea="Marco &amp; Giulia">due nomi</button>
+          </div>
+        </div>
+      </form>
+
+      <button type="button" class="btn btn--solid" data-close-custom data-goto="#collezione">Scegli il bracciale <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M4 11l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </section>
+  </div>
+
+
   <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
     <div class="sheet-back" data-close></div>
     <div class="sheet-panel">
@@ -188,11 +197,12 @@
     </div>
   </div>
 
-  <script src="js/products.js?v=25"></script>
-  <script src="js/app.js?v=25"></script>
-  <script src="js/tools.js?v=25"></script>
-  <script src="js/motion.js?v=25"></script>
-  <script src="js/plate3d.js?v=25"></script>
-  <script src="js/film.js?v=25"></script>
+  <script src="js/products.js?v=26"></script>
+  <script src="js/app.js?v=26"></script>
+  <script src="js/tools.js?v=26"></script>
+  <script src="js/motion.js?v=26"></script>
+  <script src="js/plate3d.js?v=26"></script>
+  <script src="js/film.js?v=26"></script>
+  <script src="js/views.js?v=26"></script>
 </body>
 </html>

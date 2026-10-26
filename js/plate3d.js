@@ -9,16 +9,20 @@
   if (conn.saveData) return fail();
   try { var t = document.createElement("canvas"); if (!(t.getContext("webgl") || t.getContext("experimental-webgl"))) return fail(); } catch (e) { return fail(); }
 
+  // Three.js e i caratteri dell'incisione partono subito (la pagina li ha gia' richiesti in testa):
+  // l'animazione comincia appena e' tutto pronto, senza aspettare la fine del caricamento.
+  var fonts = Promise.all(["400 60px Allura", "500 60px Cinzel", "400 60px Antonio"].map(function (f) {
+    return document.fonts && document.fonts.load ? document.fonts.load(f) : Promise.resolve();
+  })).catch(function () {});
   function load() {
     var s = document.createElement("script");
-    s.src = "js/three.min.js?v=1"; s.async = true;
+    s.src = "js/three.min.js?v=1"; s.async = true; s.fetchPriority = "high";
     s.onload = function () { try { init(); } catch (e) { fail(); } };
     s.onerror = fail;
     document.head.appendChild(s);
   }
-  if (document.readyState === "complete") start(); else window.addEventListener("load", start);
+  load();
   setTimeout(function () { if (!wrap.classList.contains("has-3d")) fail(); }, 9000);
-  function start() { if ("requestIdleCallback" in window) requestIdleCallback(load, { timeout: 1500 }); else setTimeout(load, 300); }
 
   function init() {
   "use strict";
@@ -338,6 +342,15 @@
     if (intro) stepIntro(now);
     var busy = !!anim || stepFlash(now); stepLaser(now); var sp = stepSparks(dt);
     if (busy || sp || need) { renderer.render(scene, camera); need = false; }
+    if (!shown) firstFrame();
+  }
+  // la targhetta compare (e l'animazione riparte da capo) quando il primo disegno e' pronto, non prima:
+  // il primo render compila gli shader e puo' richiedere qualche centinaio di millisecondi
+  var shown = false;
+  function firstFrame() {
+    shown = true; wrap.classList.add("has-3d");
+    if (intro) intro.t0 = performance.now();
+    lastT = performance.now();
   }
 
   /* ---------- collegamento con i comandi del sito (js/app.js manda "lesna:engrave") ---------- */
@@ -354,8 +367,7 @@
 
   var tin = document.getElementById("text"), sel = document.querySelector('input[name="style"]:checked');
   state.text = tin ? tin.value : state.text; if (sel) state.style = sel.value; label(state.text);
-  function boot() { paintBack(); paintText(); showUpTo(reduce ? TW + 10 : 0); wrap.classList.add("has-3d"); resize(); requestAnimationFrame(frame); startIntro(); }
-  var fl = ["400 60px Allura", "500 60px Cinzel", "400 60px Antonio"].map(function (f) { return document.fonts && document.fonts.load ? document.fonts.load(f) : Promise.resolve(); });
-  Promise.all(fl).catch(function () {}).then(boot);
+  function boot() { paintBack(); paintText(); showUpTo(reduce ? TW + 10 : 0); resize(); requestAnimationFrame(frame); startIntro(); }
+  fonts.then(boot);
 }
 })();

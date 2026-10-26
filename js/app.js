@@ -128,7 +128,7 @@
     main.alt = p.alt;
     main.width = 1000; main.height = 1000;
     main.decoding = "async";
-    if (index > 0) main.loading = "lazy";
+    if (index > 0) { main.loading = "lazy"; main.fetchPriority = "low"; }
     slip.appendChild(main);
     gallery.appendChild(slip);
 
@@ -142,7 +142,7 @@
         b.setAttribute("aria-label", "Mostra foto " + (i + 1) + " di " + p.photos.length);
         if (i === 0) b.setAttribute("aria-current", "true");
         var im = new Image();
-        im.src = photoSrc(name); im.alt = ""; im.loading = "lazy"; im.width = 128; im.height = 128;
+        im.src = photoSrc(name); im.alt = ""; im.loading = "lazy"; im.fetchPriority = "low"; im.width = 128; im.height = 128;
         b.appendChild(im);
         b.addEventListener("click", function () {
           main.style.opacity = "0";
@@ -287,7 +287,7 @@
 
     // voce nel pannello
     var opt = el("button", "opt-model"); opt.type = "button"; opt.dataset.id = p.id;
-    var im = new Image(); im.src = photoSrc(p.photos[0]); im.alt = ""; im.width = 120; im.height = 120; im.loading = "lazy"; im.decoding = "async";
+    var im = new Image(); im.src = photoSrc(p.photos[0]); im.alt = ""; im.width = 120; im.height = 120; im.loading = "lazy"; im.fetchPriority = "low"; im.decoding = "async";
     opt.appendChild(im); opt.appendChild(el("span", "opt-name", esc(p.name)));
     opt.addEventListener("click", function () { selectModel(p.id, { hash: true }); closeSheet(); });
     grid.appendChild(opt);

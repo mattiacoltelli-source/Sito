@@ -16,21 +16,28 @@
   ];
 
 
-  var act = -1, manual = false, lock = 0;
+  var act = -1, manual = false, pending = false;
 
   function play() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
   function set(i) {
     if (i === act) return;
     act = i;
     ex.textContent = C[i].x;
-    chips.querySelectorAll("button").forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    var btns = chips.querySelectorAll("button");
+    btns.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    // sul telefono i pulsanti scorrono di lato: il selezionato resta in vista
+    if (chips.scrollWidth > chips.clientWidth + 2) {
+      var b = btns[i];
+      chips.scrollTo({ left: Math.max(0, b.offsetLeft - (chips.clientWidth - b.offsetWidth) / 2), behavior: reduce ? "auto" : "smooth" });
+    }
   }
   C.forEach(function (c, i) {
     var b = document.createElement("button");
     b.type = "button"; b.textContent = c.n;
     b.addEventListener("click", function () {
       try { v.currentTime = c.t + 0.2; } catch (e) {}
-      lock = Date.now() + 800;
+      pending = true;
+      setTimeout(function () { pending = false; }, 2000);
       set(i);
       if (!manual && !reduce) play();
     });
@@ -45,10 +52,13 @@
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
   });
 
+  v.addEventListener("seeked", function () { pending = false; });
   v.addEventListener("timeupdate", function () {
-    if (Date.now() < lock) return;
+    if (pending || v.seeking) return;
     var t = v.currentTime, k = 0;
     C.forEach(function (c, i) { if (t >= c.t) k = i; });
+    // verso un capitolo precedente solo con un salto vero (ripartenza), non per un'oscillazione del tempo
+    if (k < act && t > C[act].t - 0.4) return;
     set(k);
   });
   function sync() {
@@ -65,7 +75,7 @@
   // parte solo quando si vede, si ferma quando esce dallo schermo o dalla scheda
   if ("IntersectionObserver" in window && !reduce) {
     new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { if (!manual) play(); } else v.pause(); });
+      es.forEach(function (e) { if (e.isIntersecting) { v.preload = "auto"; if (!manual) play(); } else v.pause(); });
     }, { threshold: 0.35 }).observe(v);
     document.addEventListener("visibilitychange", function () { if (document.hidden) v.pause(); });
   }

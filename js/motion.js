@@ -6,7 +6,7 @@
   root.classList.add("js-motion");
 
   /* ---------- Comparsa allo scroll (una volta sola) ---------- */
-  var targets = document.querySelectorAll(".sec-head, .item, .steps li, .material-in, .contact-in");
+  var targets = document.querySelectorAll(".sec-head, .item, .steps li, .material-in, .contact-in, .film-in");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

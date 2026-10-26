@@ -22,7 +22,7 @@
   <link rel="preload" href="assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <script>try{var c=document.createElement("canvas"),n=navigator.connection;if((c.getContext("webgl")||c.getContext("experimental-webgl"))&&!(n&&n.saveData))document.documentElement.classList.add("try3d")}catch(e){}</script>
-  <link rel="stylesheet" href="css/style.css?v=19">
+  <link rel="stylesheet" href="css/style.css?v=20">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -90,6 +90,30 @@
       <a class="btn btn--solid" href="#collezione">Scegli il bracciale <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M4 11l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </section>
 
+    <section class="film" id="video" aria-labelledby="h-film">
+      <div class="film-in">
+        <figure class="film-frame">
+          <video id="film" muted loop playsinline preload="metadata" poster="assets/video/lesna-promo-poster.jpg" aria-label="Video: bracciali Lesna Lab con nomi, date e coordinate incisi">
+            <source src="assets/video/lesna-promo.webm" type="video/webm">
+            <source src="assets/video/lesna-promo.mp4" type="video/mp4">
+          </video>
+          <button type="button" class="film-toggle" id="film-toggle" data-paused="false" aria-label="Metti in pausa il video">
+            <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h3.5v14H5zM11.5 3H15v14h-3.5z" fill="currentColor"/></svg>
+            <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3l12 7-12 7z" fill="currentColor"/></svg>
+          </button>
+        </figure>
+        <div class="film-copy">
+          <h2 id="h-film">Un nome, una data, un luogo.</h2>
+          <p class="film-lede">Ecco come restano incisi. Scegli un esempio dal video e provalo sulla tua targhetta.</p>
+          <div class="film-chips" id="film-chips" role="group" aria-label="Esempi dal video"></div>
+          <div class="film-live">
+            <p class="film-ex" id="film-ex" aria-live="polite"></p>
+            <button type="button" class="btn btn--solid" id="film-try">Provala sulla targhetta</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="collection" id="collezione" aria-labelledby="h-coll">
       <header class="sec-head">
         <h2 id="h-coll">I bracciali, tutti da incidere</h2>
@@ -107,27 +131,33 @@
       <div class="steps-in">
         <h2 id="h-steps">Come funziona</h2>
         <ol>
-          <li><strong>Scegli il bracciale.</strong> <span>Catena, rigido, pietre, cinturino o set di coppia.</span></li>
-          <li><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve. Su Cuff Rigido e Coordinate puoi aggiungere un messaggio segreto all'interno (+5 €).</span></li>
-          <li><strong>Ci scrivi su WhatsApp.</strong> <span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></li>
+          <li><img class="step-ph" src="assets/products/catena-3.jpg" alt="Bracciale a catena con targhetta incisa al polso" width="1000" height="1000" loading="lazy"><strong>Scegli il bracciale.</strong> <span>Catena, rigido, pietre, cinturino o set di coppia.</span></li>
+          <li><img class="step-ph" src="assets/products/rigido-3.jpg" alt="Cuff rigido inciso sul polso" width="1000" height="1000" loading="lazy"><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve. Su Cuff Rigido e Coordinate puoi aggiungere un messaggio segreto all'interno (+5 €).</span></li>
+          <li><img class="step-ph" src="assets/products/cinturino-3.jpg" alt="Bracciale in similpelle intrecciata al polso" width="1000" height="1000" loading="lazy"><strong>Ci scrivi su WhatsApp.</strong> <span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></li>
         </ol>
       </div>
     </section>
 
     <section class="material" aria-labelledby="h-mat">
       <div class="material-in">
-        <h2 id="h-mat">Perché l'acciaio</h2>
-        <p>Tutti i componenti sono in acciaio inossidabile: resistente, ipoallergenico, non si ossida e non cambia colore. L'incisione laser scurisce il metallo stesso, senza smalti che si consumano: resta nitida nel tempo.</p>
+        <div class="mat-copy">
+          <h2 id="h-mat">Perché l'acciaio</h2>
+          <p>Tutti i componenti sono in acciaio inossidabile: resistente, ipoallergenico, non si ossida e non cambia colore. L'incisione laser scurisce il metallo stesso, senza smalti che si consumano: resta nitida nel tempo.</p>
+        </div>
+        <div class="mat-photo"><img src="assets/products/catena-3.jpg" alt="Bracciale a catena con targhetta incisa al polso" width="1000" height="1000" loading="lazy"></div>
       </div>
     </section>
 
     <section class="contact" id="contatti" aria-labelledby="h-cont">
       <div class="contact-in">
+        <div class="contact-photo"><img src="assets/products/coppia-3.jpg" alt="Polso con bracciale in acciaio inciso" width="1000" height="1500" loading="lazy"></div>
+        <div class="contact-copy">
         <h2 id="h-cont">Parliamone</h2>
         <p>Hai già in mente cosa incidere? Scrivici e ti rispondiamo con tutti i dettagli.</p>
         <div class="contact-actions">
           <a class="btn btn--coral" id="contact-wa" href="#" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
           <a class="btn btn--line" id="contact-mail" href="#">Oppure via email</a>
+        </div>
         </div>
       </div>
     </section>
@@ -152,9 +182,10 @@
     <p class="foot-demo">Sito dimostrativo: foto, testi e prezzi sono di esempio e verranno sostituiti con quelli reali.</p>
   </footer>
 
-  <script src="js/products.js?v=19"></script>
-  <script src="js/app.js?v=19"></script>
-  <script src="js/motion.js?v=19"></script>
-  <script src="js/plate3d.js?v=19"></script>
+  <script src="js/products.js?v=20"></script>
+  <script src="js/app.js?v=20"></script>
+  <script src="js/motion.js?v=20"></script>
+  <script src="js/plate3d.js?v=20"></script>
+  <script src="js/film.js?v=20"></script>
 </body>
 </html>

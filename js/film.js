@@ -8,11 +8,11 @@
   // t = quando il video passa alla scena (a meta' della dissolvenza)
   var C = [
     { t: 0, n: "Un nome", x: "Chiara" },
-    { t: 3.575, n: "Nome e simbolo", x: "Isabella" },
-    { t: 7.195, n: "Due nomi e una data", x: "L & M · 14.02.2023" },
-    { t: 10.815, n: "Coordinate", x: "44.49° N, 11.34° E" },
-    { t: 14.435, n: "Una data e un luogo", x: "Emilia-Romagna" },
-    { t: 18.055, n: "Il posto del cuore", x: "45.46° N, 9.19° E" }
+    { t: 3.592, n: "Nome e simbolo", x: "Isabella" },
+    { t: 7.242, n: "Due nomi e una data", x: "L & M · 14.02.2023" },
+    { t: 10.892, n: "Coordinate", x: "44.49° N, 11.34° E" },
+    { t: 14.542, n: "Una data e un luogo", x: "Emilia-Romagna" },
+    { t: 18.192, n: "Il posto del cuore", x: "45.46° N, 9.19° E" }
   ];
 
 

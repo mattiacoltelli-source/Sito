@@ -6,7 +6,7 @@
   root.classList.add("js-motion");
 
   /* ---------- Comparsa allo scroll (una volta sola) ---------- */
-  var targets = document.querySelectorAll(".sec-head, .item, .steps li, .material-in, .contact-in, .film-in");
+  var targets = document.querySelectorAll(".sec-head, .item, .metal-in, .contact-card, .film-in");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -17,7 +17,6 @@
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     targets.forEach(function (t, i) {
       t.classList.add("reveal");
-      if (t.matches(".steps li")) t.style.setProperty("--d", (Array.prototype.indexOf.call(t.parentNode.children, t) * 90) + "ms");
       io.observe(t);
     });
   }

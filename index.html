@@ -22,7 +22,7 @@
   <link rel="preload" href="assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <script>try{var c=document.createElement("canvas"),n=navigator.connection;if((c.getContext("webgl")||c.getContext("experimental-webgl"))&&!(n&&n.saveData))document.documentElement.classList.add("try3d")}catch(e){}</script>
-  <link rel="stylesheet" href="css/style.css?v=20">
+  <link rel="stylesheet" href="css/style.css?v=21">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -127,38 +127,47 @@
       <div id="catalogo" class="catalogo"></div>
     </section>
 
-    <section class="steps" id="come-funziona" aria-labelledby="h-steps">
-      <div class="steps-in">
-        <h2 id="h-steps">Come funziona</h2>
-        <ol>
-          <li><img class="step-ph" src="assets/products/catena-3.jpg" alt="Bracciale a catena con targhetta incisa al polso" width="1000" height="1000" loading="lazy"><strong>Scegli il bracciale.</strong> <span>Catena, rigido, pietre, cinturino o set di coppia.</span></li>
-          <li><img class="step-ph" src="assets/products/rigido-3.jpg" alt="Cuff rigido inciso sul polso" width="1000" height="1000" loading="lazy"><strong>Scrivi cosa incidere.</strong> <span>Un nome, una data, un luogo, una frase breve. Su Cuff Rigido e Coordinate puoi aggiungere un messaggio segreto all'interno (+5 €).</span></li>
-          <li><img class="step-ph" src="assets/products/cinturino-3.jpg" alt="Bracciale in similpelle intrecciata al polso" width="1000" height="1000" loading="lazy"><strong>Ci scrivi su WhatsApp.</strong> <span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></li>
-        </ol>
-      </div>
+    <section class="how" id="come-funziona" aria-labelledby="h-steps">
+      <h2 id="h-steps" class="sr">Come funziona</h2>
+      <ol class="how-list">
+        <li class="how-step"><img src="assets/products/catena-3.jpg" alt="Bracciale a catena con targhetta incisa al polso" width="1000" height="1000" loading="lazy"><div class="how-txt"><b class="how-n" aria-hidden="true">1</b><strong>Scegli il bracciale.</strong><span>Catena, rigido, pietre, cinturino o set di coppia.</span></div></li>
+        <li class="how-step"><img src="assets/products/rigido-3.jpg" alt="Cuff rigido inciso sul polso" width="1000" height="1000" loading="lazy"><div class="how-txt"><b class="how-n" aria-hidden="true">2</b><strong>Scrivi cosa incidere.</strong><span>Un nome, una data, un luogo, una frase breve. Su Cuff Rigido e Coordinate puoi aggiungere un messaggio segreto all'interno (+5 €).</span></div></li>
+        <li class="how-step"><img src="assets/products/cinturino-3.jpg" alt="Bracciale in similpelle intrecciata al polso" width="1000" height="1000" loading="lazy"><div class="how-txt"><b class="how-n" aria-hidden="true">3</b><strong>Ci scrivi su WhatsApp.</strong><span>Il messaggio parte già compilato con il modello e il tuo testo. Confermiamo insieme tutti i dettagli.</span></div></li>
+      </ol>
     </section>
 
-    <section class="material" aria-labelledby="h-mat">
-      <div class="material-in">
-        <div class="mat-copy">
+    <section class="metal" aria-labelledby="h-mat">
+      <div class="metal-in">
+        <div class="metal-ph"><img src="assets/products/catena-1.jpg" alt="Targhetta in acciaio con la scritta «per aspera ad astra» incisa al laser" width="1000" height="1000" loading="lazy"></div>
+        <div class="metal-t">
           <h2 id="h-mat">Perché l'acciaio</h2>
-          <p>Tutti i componenti sono in acciaio inossidabile: resistente, ipoallergenico, non si ossida e non cambia colore. L'incisione laser scurisce il metallo stesso, senza smalti che si consumano: resta nitida nel tempo.</p>
+          <ul class="facts">
+            <li><strong>Resistente e ipoallergenico.</strong> <span>Ogni componente è in acciaio inossidabile.</span></li>
+            <li><strong>Non si ossida.</strong> <span>Non cambia colore nel tempo.</span></li>
+            <li><strong>Inciso nel metallo.</strong> <span>Il laser scurisce l'acciaio stesso, senza smalti che si consumano: la scritta resta nitida.</span></li>
+          </ul>
         </div>
-        <div class="mat-photo"><img src="assets/products/catena-3.jpg" alt="Bracciale a catena con targhetta incisa al polso" width="1000" height="1000" loading="lazy"></div>
       </div>
     </section>
 
     <section class="contact" id="contatti" aria-labelledby="h-cont">
       <div class="contact-in">
-        <div class="contact-photo"><img src="assets/products/coppia-3.jpg" alt="Polso con bracciale in acciaio inciso" width="1000" height="1500" loading="lazy"></div>
-        <div class="contact-copy">
-        <h2 id="h-cont">Parliamone</h2>
-        <p>Hai già in mente cosa incidere? Scrivici e ti rispondiamo con tutti i dettagli.</p>
-        <div class="contact-actions">
-          <a class="btn btn--coral" id="contact-wa" href="#" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
-          <a class="btn btn--line" id="contact-mail" href="#">Oppure via email</a>
+        <div class="contact-card">
+          <div class="contact-photo"><img src="assets/products/coppia-3.jpg" alt="Polso con bracciale in acciaio inciso" width="1000" height="1500" loading="lazy"></div>
+          <div class="contact-text">
+            <h2 id="h-cont">Parliamone</h2>
+            <p>Hai già in mente cosa incidere? Scrivici e ti rispondiamo con tutti i dettagli.</p>
+            <div class="contact-actions">
+              <a class="btn btn--coral" id="contact-wa" href="#" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
+              <a class="btn btn--line" id="contact-mail" href="#">Oppure via email</a>
+            </div>
+          </div>
         </div>
-        </div>
+        <footer class="foot">
+          <svg class="brand-logo" viewBox="0 0 1900 568" role="img" aria-label="Lesna Lab"><use href="#logo"/></svg>
+          <p class="foot-tag">Oggetti unici, creati per te</p>
+          <p class="foot-demo">Sito dimostrativo: foto, testi e prezzi sono di esempio e verranno sostituiti con quelli reali.</p>
+        </footer>
       </div>
     </section>
   </main>
@@ -174,18 +183,10 @@
     </div>
   </div>
 
-  <footer class="foot">
-    <div class="foot-brand">
-      <svg class="brand-logo" viewBox="0 0 1900 568" role="img" aria-label="Lesna Lab"><use href="#logo"/></svg>
-    </div>
-    <p class="foot-tag">Oggetti unici, creati per te</p>
-    <p class="foot-demo">Sito dimostrativo: foto, testi e prezzi sono di esempio e verranno sostituiti con quelli reali.</p>
-  </footer>
-
-  <script src="js/products.js?v=20"></script>
-  <script src="js/app.js?v=20"></script>
-  <script src="js/motion.js?v=20"></script>
-  <script src="js/plate3d.js?v=20"></script>
-  <script src="js/film.js?v=20"></script>
+  <script src="js/products.js?v=21"></script>
+  <script src="js/app.js?v=21"></script>
+  <script src="js/motion.js?v=21"></script>
+  <script src="js/plate3d.js?v=21"></script>
+  <script src="js/film.js?v=21"></script>
 </body>
 </html>

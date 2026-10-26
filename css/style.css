@@ -274,7 +274,7 @@ body.sheet-open { overflow: hidden; }
 .film-copy { display: contents; }
 .film-copy h2 { grid-column: 2; grid-row: 1; font-size: 24px; }
 .film-live { grid-column: 2; grid-row: 2; padding: 12px; background: var(--paper); border-radius: 18px; display: grid; gap: 10px; }
-.film-ex { font: 700 20px/1.15 var(--serif); letter-spacing: -.01em; overflow-wrap: anywhere; }
+.film-ex { min-height: 2.3em; font: 700 20px/1.15 var(--serif); letter-spacing: -.01em; overflow-wrap: anywhere; }
 .film-live .btn { min-height: 44px; padding: 0 14px; font-size: 14px; }
 .film-chips { grid-column: 1 / -1; grid-row: 4; display: flex; gap: 8px; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; scrollbar-width: none; }
 .film-chips::-webkit-scrollbar { display: none; }
@@ -287,7 +287,7 @@ body.sheet-open { overflow: hidden; }
   .film-copy { display: grid; gap: 18px; align-content: center; justify-items: start; }
   .film-copy h2 { font-size: clamp(28px, 3vw, 40px); max-width: 16ch; }
   .film-live { justify-items: start; padding: 16px 18px 18px; border-radius: 22px; }
-  .film-ex { font-size: 26px; }
+  .film-ex { min-height: 0; font-size: 26px; }
   .film-chips { flex-wrap: wrap; overflow: visible; margin-inline: 0; padding: 0; }
 }
 

@@ -5,15 +5,16 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var tg = document.getElementById("film-toggle"), chips = document.getElementById("film-chips");
   var ex = document.getElementById("film-ex"), tryBtn = document.getElementById("film-try");
-  // i tempi sono quelli dei capitoli del video
+  // t = quando il video passa alla scena (a meta' della dissolvenza)
   var C = [
     { t: 0, n: "Un nome", x: "Chiara" },
-    { t: 4.4, n: "Nome e simbolo", x: "Isabella" },
-    { t: 9.7, n: "Due nomi e una data", x: "L & M · 14.02.2023" },
-    { t: 14, n: "Coordinate", x: "44.49° N, 11.34° E" },
-    { t: 18.5, n: "Una data e un luogo", x: "Emilia-Romagna" },
-    { t: 23, n: "Il posto del cuore", x: "45.46° N, 9.19° E" }
+    { t: 3.575, n: "Nome e simbolo", x: "Isabella" },
+    { t: 7.195, n: "Due nomi e una data", x: "L & M · 14.02.2023" },
+    { t: 10.815, n: "Coordinate", x: "44.49° N, 11.34° E" },
+    { t: 14.435, n: "Una data e un luogo", x: "Emilia-Romagna" },
+    { t: 18.055, n: "Il posto del cuore", x: "45.46° N, 9.19° E" }
   ];
+
 
   var act = -1, manual = false, lock = 0;
 
@@ -28,7 +29,7 @@
     var b = document.createElement("button");
     b.type = "button"; b.textContent = c.n;
     b.addEventListener("click", function () {
-      try { v.currentTime = c.t; } catch (e) {}
+      try { v.currentTime = c.t + 0.2; } catch (e) {}
       lock = Date.now() + 800;
       set(i);
       if (!manual && !reduce) play();

@@ -22,7 +22,7 @@
   <link rel="preload" href="assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <script>try{var c=document.createElement("canvas"),n=navigator.connection;if((c.getContext("webgl")||c.getContext("experimental-webgl"))&&!(n&&n.saveData))document.documentElement.classList.add("try3d")}catch(e){}</script>
-  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="stylesheet" href="css/style.css?v=22">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -72,18 +72,25 @@
           <input id="text" name="text" type="text" maxlength="30" value="Sempre al tuo fianco" spellcheck="false" enterkeyhint="done">
           <span class="count" id="count" aria-live="polite">20/30</span>
         </div>
-        <fieldset class="styles">
-          <legend>Stile</legend>
-          <label><input type="radio" name="style" value="corsivo" checked><span class="chip chip--corsivo">Corsivo</span></label>
-          <label><input type="radio" name="style" value="romano"><span class="chip chip--romano">Romano</span></label>
-          <label><input type="radio" name="style" value="blocco"><span class="chip chip--blocco">Blocco</span></label>
-        </fieldset>
-        <div class="ideas" aria-label="Idee veloci">
-          <span class="ideas-label">Prova con</span>
-          <button type="button" data-idea="Sempre al tuo fianco">una frase</button>
-          <button type="button" data-idea="12.06.2019">una data</button>
-          <button type="button" data-idea="44°15'25&quot;N 12°21'19&quot;E">coordinate</button>
-          <button type="button" data-idea="Marco &amp; Giulia">due nomi</button>
+        <div class="tools">
+          <button type="button" class="tool" id="tool-style" aria-expanded="false" aria-controls="panel-style"><span class="tool-k">Stile</span><span class="tool-v" id="tool-style-v" data-style="corsivo">Corsivo</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="tool" id="tool-ideas" aria-expanded="false" aria-controls="panel-ideas"><span class="tool-v">Prova con</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="tool-panel" id="panel-style" hidden>
+          <fieldset class="styles">
+            <legend>Stile</legend>
+            <label><input type="radio" name="style" value="corsivo" checked><span class="chip chip--corsivo">Corsivo</span></label>
+            <label><input type="radio" name="style" value="romano"><span class="chip chip--romano">Romano</span></label>
+            <label><input type="radio" name="style" value="blocco"><span class="chip chip--blocco">Blocco</span></label>
+          </fieldset>
+        </div>
+        <div class="tool-panel" id="panel-ideas" hidden>
+          <div class="ideas" role="group" aria-label="Idee veloci">
+            <button type="button" data-idea="Sempre al tuo fianco">una frase</button>
+            <button type="button" data-idea="12.06.2019">una data</button>
+            <button type="button" data-idea="44°15'25&quot;N 12°21'19&quot;E">coordinate</button>
+            <button type="button" data-idea="Marco &amp; Giulia">due nomi</button>
+          </div>
         </div>
       </form>
 
@@ -104,7 +111,6 @@
         </figure>
         <div class="film-copy">
           <h2 id="h-film">Un nome, una data, un luogo.</h2>
-          <p class="film-lede">Ecco come restano incisi. Scegli un esempio dal video e provalo sulla tua targhetta.</p>
           <div class="film-chips" id="film-chips" role="group" aria-label="Esempi dal video"></div>
           <div class="film-live">
             <p class="film-ex" id="film-ex" aria-live="polite"></p>
@@ -138,7 +144,6 @@
 
     <section class="metal" aria-labelledby="h-mat">
       <div class="metal-in">
-        <div class="metal-ph"><img src="assets/products/catena-1.jpg" alt="Targhetta in acciaio con la scritta «per aspera ad astra» incisa al laser" width="1000" height="1000" loading="lazy"></div>
         <div class="metal-t">
           <h2 id="h-mat">Perché l'acciaio</h2>
           <ul class="facts">
@@ -183,10 +188,11 @@
     </div>
   </div>
 
-  <script src="js/products.js?v=21"></script>
-  <script src="js/app.js?v=21"></script>
-  <script src="js/motion.js?v=21"></script>
-  <script src="js/plate3d.js?v=21"></script>
-  <script src="js/film.js?v=21"></script>
+  <script src="js/products.js?v=22"></script>
+  <script src="js/app.js?v=22"></script>
+  <script src="js/tools.js?v=22"></script>
+  <script src="js/motion.js?v=22"></script>
+  <script src="js/plate3d.js?v=22"></script>
+  <script src="js/film.js?v=22"></script>
 </body>
 </html>
